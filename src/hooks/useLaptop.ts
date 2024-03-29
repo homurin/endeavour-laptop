@@ -12,6 +12,7 @@ const useLaptop = (page: number = 1, size: number = 10) => {
       revalidateOnReconnect: false,
     }
   );
+
   return {
     data,
     error,

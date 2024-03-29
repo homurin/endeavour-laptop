@@ -1,10 +1,5 @@
-"use client";
 import React from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
-import { GoCpu } from "react-icons/go";
-import { BsGpuCard } from "react-icons/bs";
-import { MdOutlineStorage } from "react-icons/md";
-import { CgSmartphoneRam } from "react-icons/cg";
 import useLaptop from "@/hooks/useLaptop";
 
 const Billboard = () => {

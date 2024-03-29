@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import { GoCpu } from "react-icons/go";
 import { BsGpuCard } from "react-icons/bs";
