@@ -1,14 +1,13 @@
 "use client";
-import HeroSlide from "@/components/common/HeroSlide";
-import endeavourConfig from "@/api/configs/endeavour.config";
+import AppHeroSlide from "@/components/common/AppHeroSlide";
+import LaptopHeroSlide from "@/components/common/LaptopHeroSlide";
 
 export default function Page() {
+  const isEven = Date.now() % 2 === 0;
   return (
     <>
-      <HeroSlide
-        mediaType={endeavourConfig.mediaType.laptop}
-        mediaCategory={endeavourConfig.mediaCategory.top_price}
-      />
+      {isEven && <AppHeroSlide />}
+      {!isEven && <LaptopHeroSlide />}
     </>
   );
 }

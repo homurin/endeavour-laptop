@@ -29,7 +29,7 @@ const custom: Custom = ({ mode }) => {
             constrastText: "#ffffff",
           },
           background: {
-            default: "rgb(15,23,42)",
+            default: "#000000",
             paper: "#131313",
           },
         }

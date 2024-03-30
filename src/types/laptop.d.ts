@@ -1,0 +1,32 @@
+export interface Laptop {
+  id: string;
+  adminId: string;
+  cpuId?: string;
+  gpuId?: string;
+  winId?: string;
+  thumbId?: string;
+  videosId?: string;
+  brandId?: string;
+  name: string;
+  ram: number;
+  ssdStorage: number;
+  hddStorage: number;
+  price: number;
+  displayName?: string;
+  displaySize?: number;
+  displayResolution?: string;
+  panelType?: string;
+  panelCode?: number;
+  refreshRate?: number;
+  weight?: number;
+  suitableFor?: string;
+  isNew?: boolean;
+  gamingScore?: number;
+  workstationScore: number;
+  odEdition?: string;
+  thumb?: string;
+  videos?: string;
+  osEdition?: string;
+  galleries?: GalleriesRequestBody[];
+  deleteGalleries?: string[];
+}

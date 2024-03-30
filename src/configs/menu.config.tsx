@@ -20,12 +20,12 @@ const main = [
   },
   {
     display: "laptops",
-    path: "/laptop",
+    path: "/laptops",
     icon: <LaptopOutlinedIcon />,
   },
   {
     display: "applications",
-    path: "/application",
+    path: "/applications",
     icon: <SportsEsportsOutlinedIcon />,
   },
   {
