@@ -1,12 +1,11 @@
 "use client";
 
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import SlideshowOutlineIcon from "@mui/icons-material/SlideshowOutlined";
-import LiveTvOutlinedIcon from "@mui/icons-material/LiveTvOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOffOutlined";
-import RateReviewOutlinedIcon from "@mui/icons-material/RateReviewOutlined";
-import LockResetOutlinedIcon from "@mui/icons-material/LockResetOutlined";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import LaptopOutlinedIcon from "@mui/icons-material/LaptopOutlined";
+import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
+import PageviewOutlinedIcon from "@mui/icons-material/PageviewOutlined";
 
 const main = [
   {
@@ -15,19 +14,24 @@ const main = [
     icon: <HomeOutlinedIcon />,
   },
   {
-    display: "laptop",
-    path: "/laptop",
-    icon: <SlideshowOutlineIcon />,
+    display: "get recommendations",
+    path: "/recommendation",
+    icon: <PageviewOutlinedIcon />,
   },
   {
-    display: "application",
+    display: "laptops",
+    path: "/laptop",
+    icon: <LaptopOutlinedIcon />,
+  },
+  {
+    display: "applications",
     path: "/application",
-    icon: <LiveTvOutlinedIcon />,
+    icon: <SportsEsportsOutlinedIcon />,
   },
   {
     display: "search",
     path: "/search",
-    icon: <HomeOutlinedIcon />,
+    icon: <SearchOutlinedIcon />,
   },
 ];
 
