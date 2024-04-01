@@ -1,7 +1,9 @@
 import * as Application from "@repository/applicationRepository";
+import { Windows } from "./windows";
 
 export interface Apps {
   id: string;
+  minOs: Windows;
   adminId: string;
   windId: string;
   name: string;
@@ -30,6 +32,8 @@ export interface Apps {
   minRam: number;
   minStorage: number;
   bitOs: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface AppGetAllQuery {

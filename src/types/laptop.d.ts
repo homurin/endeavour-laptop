@@ -1,5 +1,14 @@
+import { Cpu } from "./cpu";
+import { Gallery } from "./galleries";
+import { Gpu } from "./gpu";
+import { Windows } from "./windows";
+
 export interface Laptop {
   id: string;
+  cpu: Cpu;
+  gpu: Gpu;
+  galleries: Array<Gallery>;
+  windows: Windows;
   adminId: string;
   cpuId?: string;
   gpuId?: string;
@@ -27,6 +36,17 @@ export interface Laptop {
   thumb?: string;
   videos?: string;
   osEdition?: string;
-  galleries?: GalleriesRequestBody[];
   deleteGalleries?: string[];
+}
+
+export interface LaptopRecommendationRequestFields {
+  minCpuSpeed: number;
+  minCpuCores: number;
+  minGpuBoostClock: number;
+  minGpuMemory: number;
+  minDirectX: number;
+  minOpenGl: number;
+  minRam: number;
+  minStorage: number;
+  minOs: number;
 }

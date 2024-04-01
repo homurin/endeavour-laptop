@@ -28,7 +28,8 @@ const uiConfigs = {
       margin: "auto",
       padding: 2,
     },
-    backroundImage: (imgPath: string) => ({
+    backgroundImage: (imgPath?: string) => ({
+      backgroundRepeat: "no-repeat",
       position: "relative",
       backgroundSize: "cover",
       backgroundPosition: "center",

@@ -1,7 +1,9 @@
+"use client";
+
 import { Box, Stack, Typography } from "@mui/material";
 import React from "react";
 
-const Container = ({ header, children }: { header?: string; children: React.ReactNode }) => {
+const Container = ({ header, children }: { header?: string; children?: React.ReactElement }) => {
   return (
     <Box
       sx={{

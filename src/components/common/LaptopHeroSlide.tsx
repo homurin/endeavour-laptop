@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import { setGlobalLoading } from "@/redux/features/globalLoadingSlice";
 import uiConfigs from "@/configs/ui.config";
 import { AppDispatch } from "@/redux/store";
-import { getRandomLaptop } from "@/api/modules/laptop.api";
+import { getRandomLaptops } from "@/api/modules/laptop.api";
 import { Laptop } from "@/types/laptop";
 import "swiper/css";
 
@@ -25,7 +25,7 @@ const LaptopHeroSlide = () => {
 
   useEffect(() => {
     const getRandomApps = async () => {
-      const { laptops, message } = await getRandomLaptop();
+      const { laptops, message } = await getRandomLaptops();
       if (laptops) setLaptops(laptops);
       if (message !== "success") toast.error(message);
       dispatch(setGlobalLoading(false));
@@ -72,7 +72,7 @@ const LaptopHeroSlide = () => {
                   backgroundColor: "#000000",
                   backgroundPosition: "top",
                   backgroundSize: "cover",
-                  backgroundImage: `url(${laptop.galleries[0].image})`,
+                  backgroundImage: `url(${laptop.galleries[0]?.image || ""})`,
                 }}
               />
               <Box
@@ -112,7 +112,7 @@ const LaptopHeroSlide = () => {
                 >
                   <Stack
                     sx={{
-                      mt: "30%",
+                      mt: "25%",
                     }}
                     spacing={4}
                     direction="column"
@@ -144,7 +144,7 @@ const LaptopHeroSlide = () => {
                       size="large"
                       startIcon={<LaptopChromebookOutlinedIcon />}
                       component={Link}
-                      href={`/applications/${laptop.id}`}
+                      href={`/laptops/${laptop.id}`}
                       sx={{ width: "max-content" }}
                     >
                       More Info

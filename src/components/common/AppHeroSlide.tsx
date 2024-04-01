@@ -12,9 +12,8 @@ import { toast } from "react-toastify";
 import { setGlobalLoading } from "@/redux/features/globalLoadingSlice";
 import uiConfigs from "@/configs/ui.config";
 import { AppDispatch } from "@/redux/store";
-import { getRandomApp } from "@/api/modules/app.api";
+import { getRandomApps } from "@/api/modules/app.api";
 import { Apps } from "@/types/application";
-import "swiper/css";
 
 const AppHeroSlide = () => {
   const theme = useTheme();
@@ -24,14 +23,14 @@ const AppHeroSlide = () => {
   const [apps, setApps] = useState([] as Array<Apps>);
 
   useEffect(() => {
-    const getRandomApps = async () => {
-      const { apps, message } = await getRandomApp();
+    const getData = async () => {
+      const { apps, message } = await getRandomApps();
       if (apps) setApps(apps);
       if (message !== "success") toast.error(message);
       dispatch(setGlobalLoading(false));
     };
     dispatch(setGlobalLoading(true));
-    getRandomApps();
+    getData();
   }, [dispatch]);
   return (
     <Box
@@ -72,7 +71,7 @@ const AppHeroSlide = () => {
                   backgroundColor: "#000000",
                   backgroundPosition: "top",
                   backgroundSize: "cover",
-                  backgroundImage: `url(${app.screenshots})`,
+                  backgroundImage: `url(${app.screenshots || ""})`,
                 }}
               />
               <Box
