@@ -8,7 +8,7 @@ export interface Laptop {
   cpu: Cpu;
   gpu: Gpu;
   galleries: Array<Gallery>;
-  windows: Windows;
+  windowsVersion: Windows;
   adminId: string;
   cpuId?: string;
   gpuId?: string;
@@ -20,6 +20,7 @@ export interface Laptop {
   ram: number;
   ssdStorage: number;
   hddStorage: number;
+  totalStorage: number;
   price: number;
   displayName?: string;
   displaySize?: number;

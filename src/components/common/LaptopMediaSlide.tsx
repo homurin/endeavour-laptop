@@ -5,8 +5,9 @@ import { Box } from "@mui/material";
 import { SwiperSlide, Swiper } from "swiper/react";
 import LaptopMediaItem from "./LaptopMediaItem";
 import "swiper/css";
+import { Laptop } from "@/types/laptop";
 
-const LaptopMediaSlide = ({ data }: { data: Array<any> }) => {
+const LaptopMediaSlide = ({ data }: { data: Array<Laptop> }) => {
   return (
     <Box
       sx={{
@@ -15,7 +16,7 @@ const LaptopMediaSlide = ({ data }: { data: Array<any> }) => {
             xs: "50%",
             sm: "35%",
             md: "25%",
-            lg: "20.5%",
+            lg: "25%",
           },
           height: "50%",
         },

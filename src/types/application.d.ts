@@ -36,10 +36,15 @@ export interface Apps {
   updatedAt: Date;
 }
 
-export interface AppGetAllQuery {
-  search?: string;
-  sort_by?: string;
-  order_by?: Prisma.SortOrder;
-  page?: string;
-  size?: string;
+export interface MinimumAppsRequirements {
+  cpuMaxSpeed: number;
+  cpuCores: number;
+  directX: number;
+  openGl: number;
+  gpuMemory: number;
+  gpuMaxSpeed: number;
+  ram: number;
+  totalStorage: number;
+  windowsName: string;
+  buildNumber: number;
 }

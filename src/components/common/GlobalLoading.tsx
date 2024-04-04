@@ -18,7 +18,7 @@ export default function GlobalLoading() {
     } else {
       setTimeout(() => {
         setIsLoading(false);
-      }, 1000);
+      }, 2000);
     }
   }, [globalLoading]);
   return (

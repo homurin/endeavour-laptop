@@ -21,16 +21,16 @@ const LaptopHeroSlide = () => {
   const useAppDispatch = useDispatch.withTypes<AppDispatch>();
   const dispatch = useAppDispatch();
 
-  const [laptops, setLaptops] = useState([] as Array<any>);
+  const [laptops, setLaptops] = useState([] as Array<Laptop>);
 
   useEffect(() => {
     const getRandomApps = async () => {
+      dispatch(setGlobalLoading(true));
       const { laptops, message } = await getRandomLaptops();
       if (laptops) setLaptops(laptops);
       if (message !== "success") toast.error(message);
       dispatch(setGlobalLoading(false));
     };
-    dispatch(setGlobalLoading(true));
     getRandomApps();
   }, [dispatch]);
   return (

@@ -1,10 +1,10 @@
 "use client";
 
 import { Box, Stack, Typography } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-
+import { SwiperSlide } from "swiper/react";
 import Container from "@/components/common/Container";
 import ImageHeader from "@/components/common/ImageHeader";
 import uiConfigs from "@/configs/ui.config";
@@ -12,12 +12,9 @@ import { getLaptopDetail, getSimilarLaptops } from "@/api/modules/laptop.api";
 import { setGlobalLoading } from "@/redux/features/globalLoadingSlice";
 import NavigationSwiper from "@/components/common/NavigationSwiper";
 import LaptopMediaSlide from "@/components/common/LaptopMediaSlide";
-
-import type { AppDispatch, RootState } from "@/redux/store";
-import { SwiperSlide } from "swiper/react";
+import type { AppDispatch } from "@/redux/store";
 
 export default function Page({ params }: { params: { slug: string } }) {
-  const useAppSelector = useSelector.withTypes<RootState>();
   const useAppDispatch = useDispatch.withTypes<AppDispatch>();
   const dispatch = useAppDispatch();
 
@@ -125,7 +122,7 @@ export default function Page({ params }: { params: { slug: string } }) {
               {laptop.gpu?.baseSpeed} - {laptop.gpu?.maxSpeed} MHz
               <br />
               <strong>GPU Memory: </strong>
-              {laptop.gpu?.memory > 0 ? `${laptop.gpu?.memory} GB` : "Shared Memory"} )
+              {laptop.gpu?.memory > 0 ? `${laptop.gpu?.memory} GB` : "Shared Memory"}
               <br />
               <strong>DirectX Version : </strong>
               {laptop.gpu?.directX}

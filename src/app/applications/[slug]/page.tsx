@@ -1,10 +1,12 @@
 "use client";
 
+import { MdLibraryAdd, MdLibraryAddCheck } from "react-icons/md";
+import { LoadingButton } from "@mui/lab";
 import { Box, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-
+import { FaWindows, FaApple, FaLinux } from "react-icons/fa";
 import Container from "@/components/common/Container";
 import ImageHeader from "@/components/common/ImageHeader";
 import uiConfigs from "@/configs/ui.config";
@@ -12,21 +14,22 @@ import { getRandomApps, getOneApp } from "@/api/modules/app.api";
 import { getLaptopRecommendation } from "@/api/modules/laptop.api";
 import { setGlobalLoading } from "@/redux/features/globalLoadingSlice";
 import LaptopMediaSlide from "@/components/common/LaptopMediaSlide";
-
-import type { AppDispatch, RootState } from "@/redux/store";
+import type { AppDispatch } from "@/redux/store";
 import { Apps } from "@/types/application";
 import { Laptop } from "@/types/laptop";
 import AppMediaSlide from "@/components/common/AppMediaSlide";
 import { dateFormatFromIsoString } from "@utils/parseDate";
+import * as selectedApps from "@utils/selectedAppsUtils";
 
 export default function Page({ params }: { params: { slug: string } }) {
-  const useAppSelector = useSelector.withTypes<RootState>();
   const useAppDispatch = useDispatch.withTypes<AppDispatch>();
   const dispatch = useAppDispatch();
 
   const [app, setApp] = useState<Apps>();
   const [laptops, setLaptops] = useState<Array<Laptop>>([]);
   const [randomApps, setRandomApps] = useState<Array<Apps>>([]);
+  const [isSelectedApp, setIsSelectedApp] = useState<boolean>(false);
+  const [onRequest, setOnRequest] = useState<boolean>(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -39,6 +42,8 @@ export default function Page({ params }: { params: { slug: string } }) {
       if (appsMsg !== "success") toast.error(appsMsg);
       if (app) setApp(app);
       if (apps) setRandomApps(apps);
+      const isSelectedAppExist = await selectedApps.isExists(params.slug);
+      if (isSelectedAppExist) setIsSelectedApp(true);
 
       const { message: laptopsMsg, laptops } = await getLaptopRecommendation([app.id]);
 
@@ -51,6 +56,42 @@ export default function Page({ params }: { params: { slug: string } }) {
     getData();
   }, [dispatch]);
 
+  const onAddClick = async () => {
+    try {
+      if (isSelectedApp) {
+        onRemoveSelectedApps();
+        return;
+      }
+
+      setOnRequest(true);
+
+      const payload = {
+        id: app?.id,
+        name: app?.name,
+        headerImage: app?.headerImage || "",
+      };
+
+      await selectedApps.add(payload);
+      setIsSelectedApp(true);
+      setOnRequest(false);
+      toast.success("add selected application success");
+    } catch (err) {
+      toast.error("add selected application failed");
+    }
+  };
+
+  const onRemoveSelectedApps = async () => {
+    try {
+      if (onRequest) return;
+      setOnRequest(true);
+      await selectedApps.remove(params.slug);
+      setOnRequest(false);
+      setIsSelectedApp(false);
+      toast.success("remove selected application success");
+    } catch (err) {
+      toast.error("remove selected application failed");
+    }
+  };
   return app ? (
     <>
       <ImageHeader imgPath={app.screenshots || ""} />
@@ -84,8 +125,32 @@ export default function Page({ params }: { params: { slug: string } }) {
                 >
                   {app.name}
                 </Typography>
+                <Stack direction="row" spacing={1}>
+                  <LoadingButton
+                    variant="contained"
+                    sx={{
+                      width: "max-content",
+                      "& .MuiButton-startIcon": { marginRight: "0" },
+                    }}
+                    size="large"
+                    loadingPosition="start"
+                    loading={onRequest}
+                    onClick={onAddClick}
+                    startIcon={isSelectedApp ? <MdLibraryAddCheck /> : <MdLibraryAdd />}
+                  >
+                    <span>{isSelectedApp ? "Added" : "Add To List"}</span>
+                  </LoadingButton>
+                </Stack>
                 <Container header="Basic Information">
                   <Typography variant="body1" sx={{ ...uiConfigs.style.typoLines(20) }}>
+                    <strong>Price : </strong>
+                    {app.price && app?.price <= 0
+                      ? "Free To Play"
+                      : new Intl.NumberFormat("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        }).format(app.price || 0)}
+                    <br />
                     <strong>Release Date : </strong>
                     {dateFormatFromIsoString(app.releaseDate)}
                     <br />
@@ -95,12 +160,11 @@ export default function Page({ params }: { params: { slug: string } }) {
                     <strong>Publisher : </strong>
                     {app.publishers}
                     <br />
-                    <strong>Website : </strong>
-                    <a href={app.website}>{app.website}</a>
+                    <strong>Supported Operating System :</strong>
                     <br />
-                    <strong>Link : </strong>
-                    <a href={app.link}>{app.link}</a>
-                    <br />
+                    {app.windows && <FaWindows size={30} style={{ display: "inline" }} />}
+                    {app.mac && <FaApple size={30} style={{ display: "inline" }} />}
+                    {app.linux && <FaLinux size={30} style={{ display: "inline" }} />}
                   </Typography>
                 </Container>
               </Stack>
@@ -118,7 +182,6 @@ export default function Page({ params }: { params: { slug: string } }) {
             >
               <iframe
                 allowFullScreen={true}
-                allow="autoplay"
                 src={app.movies}
                 title={app.id}
                 style={{ border: 0, width: "90vw", height: "100vh", display: "block" }}

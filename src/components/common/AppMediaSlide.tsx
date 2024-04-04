@@ -16,7 +16,7 @@ const AppMediaSlide = ({ data }: { data: Array<Apps> }) => {
             xs: "50%",
             sm: "35%",
             md: "25%",
-            lg: "20.5%",
+            lg: "25%",
           },
           height: "50%",
         },

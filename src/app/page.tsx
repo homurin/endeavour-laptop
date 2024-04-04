@@ -12,16 +12,17 @@ import { getMostExpensiveLaptops, getNewestLaptop } from "@/api/modules/laptop.a
 import { Apps } from "@/types/application";
 import { toast } from "react-toastify";
 import LaptopMediaSlide from "@/components/common/LaptopMediaSlide";
+import { Laptop } from "@/types/laptop";
 
 export default function Page() {
-  const [mostExpensiveApps, setMostExpensiveApps] = useState([] as Array<Apps>);
-  const [newestApps, setNewestApps] = useState([] as Array<Apps>);
-  const [newestLaptops, setNewestLaptop] = useState([] as any[]);
-  const [mostExpensiveLaptops, setMostExpensiveLaptops] = useState([] as any[]);
+  const [mostExpensiveApps, setMostExpensiveApps] = useState<Array<Apps>>([]);
+  const [newestApps, setNewestApps] = useState<Array<Apps>>([]);
+  const [newestLaptops, setNewestLaptop] = useState<Array<Laptop>>([]);
+  const [mostExpensiveLaptops, setMostExpensiveLaptops] = useState<Array<Laptop>>([]);
 
   useEffect(() => {
     const getData = async () => {
-      const { message: newestAppsMsg, apps: newestApps } = await getNewestApps(10);
+      const { message: newestAppsMsg, apps: newestApps } = await getNewestApps(20);
       if (newestAppsMsg !== "success") toast.error(newestAppsMsg);
       if (newestApps) setNewestApps(newestApps);
 
@@ -31,7 +32,7 @@ export default function Page() {
       if (mostExpensiveAppsMsg !== "success") toast.error(mostExpensiveAppsMsg);
       if (mostExpensiveApps) setMostExpensiveApps(mostExpensiveApps);
 
-      const { message: newestLaptopsMsg, laptops: newestLaptops } = await getNewestLaptop(10);
+      const { message: newestLaptopsMsg, laptops: newestLaptops } = await getNewestLaptop(20);
       if (newestLaptopsMsg !== "success") toast.error(newestLaptopsMsg);
       if (newestLaptops) setNewestLaptop(newestLaptops);
 
@@ -49,7 +50,7 @@ export default function Page() {
       {isEven && <AppHeroSlide />}
       {!isEven && <LaptopHeroSlide />}
       <Box marginTop="-4rem" sx={{ ...uiConfigs.style.mainContent }}>
-        <Container header="recently added laptops">
+        <Container header="newest laptops">
           <LaptopMediaSlide data={newestLaptops} />
         </Container>
 
@@ -57,7 +58,7 @@ export default function Page() {
           <LaptopMediaSlide data={mostExpensiveLaptops} />
         </Container>
 
-        <Container header="recently added applications">
+        <Container header="newest release applications">
           <AppMediaSlide data={newestApps} />
         </Container>
 

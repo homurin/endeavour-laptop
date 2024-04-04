@@ -1,76 +1,118 @@
 "use client";
 
-import { Box, Stack, Typography } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import { CardActionArea, Typography } from "@mui/material";
+import { FiCpu } from "react-icons/fi";
+import { BsGpuCard } from "react-icons/bs";
+import { FaMemory, FaWindows } from "react-icons/fa";
+import { MdOutlineStorage } from "react-icons/md";
 import { useEffect, useState } from "react";
 import uiConfigs from "@/configs/ui.config";
 import Link from "next/link";
+import { Laptop } from "@/types/laptop";
 
-const LaptopMediaItem = ({ media }: { media: any }) => {
-  const [name, setName] = useState("" as string);
-  const [thumb, setThumb] = useState("" as string | undefined);
+const LaptopMediaItem = ({ media }: { media: Laptop }) => {
+  const [name, setName] = useState<string>("");
+  const [thumb, setThumb] = useState<string | undefined>("");
+  const [cpu, setCpu] = useState<string>("");
+  const [gpu, setGpu] = useState<string>("");
+  const [ram, setRam] = useState<number>(0);
+  const [storage, setStorage] = useState<number>(0);
+  const [windows, setWindows] = useState<string>("");
 
   useEffect(() => {
     setName(media.name);
     setThumb(media.thumb);
+    setCpu(
+      `${media.cpu?.name}@${media.cpu?.baseSpeed.toFixed(2)}~${media.cpu?.maxSpeed.toFixed(2)}`
+    );
+    setGpu(media.gpu?.name);
+    setRam(media.ram);
+    setStorage(media.ssdStorage + media.hddStorage);
+    setWindows(`${media.windowsVersion?.name} ${media.osEdition}`);
   }, [media]);
 
   return (
-    <Link href={`/laptops/${media.id}`}>
-      <Box
-        sx={{
-          ...uiConfigs.style.backgroundImage(thumb),
-          paddingTop: "50%",
-          marginRight: "0.3rem",
-          "&:hover .media-info": { opacity: 1, bottom: 0 },
-          "&:hover .media-back-drop, &:hover .media-play-btn": { opacity: 1 },
-        }}
-      >
-        <Box
-          className="media-back-drop"
-          sx={{
-            opacity: { xs: 1, md: 0 },
-            transition: "all 0.3s ease",
-            width: "100%",
-            height: "100%",
-            position: "absolute",
-            top: 0,
-            left: 0,
-            backgroundImage: "linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0))",
-          }}
+    <Card sx={{ marginRight: "0.3rem" }}>
+      <CardActionArea LinkComponent={Link} href={`/laptops/${media.id}`}>
+        <img
+          style={{ objectFit: "contain", width: "100%", height: "15rem" }}
+          src={thumb}
+          alt={`${name}-thumb`}
         />
+        <CardContent>
+          <Typography
+            variant="h5"
+            component="div"
+            sx={{
+              fontWeight: 700,
+              color: "text.primary",
+              fontSize: "1rem",
+              ...uiConfigs.style.typoLines(1, "left"),
+            }}
+          >
+            {name}
+          </Typography>
 
-        <Box
-          className="media-info"
-          sx={{
-            transition: "all 0.3s ease",
-            opacity: { xs: 1, md: 0 },
-            position: "absolute",
-            bottom: { xs: 0, md: "-20px" },
-            width: "100%",
-            heigth: "max-content",
-            boxSizing: "border-box",
-            padding: {
-              xs: "10px",
-              md: "2rem 1rem",
-            },
-          }}
-        >
-          <Stack spacing={{ xs: 1, md: 2 }}>
-            <Typography
-              variant="body1"
-              fontWeight="700"
-              sx={{
-                color: "primary.contrastText",
-                fontSize: "1rem",
-                ...uiConfigs.style.typoLines(1, "left"),
-              }}
-            >
-              {name}
-            </Typography>
-          </Stack>
-        </Box>
-      </Box>
-    </Link>
+          <Typography
+            variant="body1"
+            sx={{
+              color: "text.primary",
+              fontSize: "0.8rem",
+              ...uiConfigs.style.typoLines(1, "left"),
+            }}
+          >
+            <FiCpu style={{ display: "inline" }} />
+            {" " + cpu} GHz
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              color: "text.primary",
+              fontSize: "0.8rem",
+              ...uiConfigs.style.typoLines(1, "left"),
+            }}
+          >
+            <BsGpuCard style={{ display: "inline" }} />
+            {" " + gpu}
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              color: "text.primary",
+              fontSize: "0.8rem",
+              ...uiConfigs.style.typoLines(1, "left"),
+            }}
+          >
+            <FaMemory style={{ display: "inline" }} />
+            {" " + ram} GB
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              color: "text.primary",
+              fontSize: "0.8rem",
+              ...uiConfigs.style.typoLines(1, "left"),
+            }}
+          >
+            <MdOutlineStorage style={{ display: "inline" }} />
+            {" " + storage} GB
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              color: "text.primary",
+              fontSize: "0.8rem",
+              ...uiConfigs.style.typoLines(1, "left"),
+            }}
+          >
+            <FaWindows style={{ display: "inline" }} />
+            {" " + windows}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
   );
 };
 

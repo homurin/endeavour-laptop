@@ -1,77 +1,107 @@
 "use client";
 
-import { Box, Stack, Typography } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import { LoadingButton } from "@mui/lab";
+import { CardActionArea, Typography, CardActions } from "@mui/material";
+import { FaWindows, FaApple, FaLinux } from "react-icons/fa";
+import { MdLibraryAdd, MdLibraryAddCheck } from "react-icons/md";
+import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import uiConfigs from "@/configs/ui.config";
 import Link from "next/link";
 import { Apps } from "@/types/application";
+import * as selectedApps from "@/utils/selectedAppsUtils";
 
 const AppMediaItem = ({ media }: { media: Apps }) => {
-  const [name, setName] = useState("" as string);
-  const [headerImage, setHeaderImage] = useState("" as string | undefined);
-  console.info(headerImage);
+  const [isSelectedApp, setIsSelectedApp] = useState<boolean>(false);
+  const [onRequest, setOnRequest] = useState<boolean>(false);
+
   useEffect(() => {
-    setName(media.name);
-    setHeaderImage(media.headerImage);
+    const getData = async () => {
+      const isSelectedAppExists = await selectedApps.isExists(media.id);
+      if (isSelectedAppExists) setIsSelectedApp(true);
+    };
+    getData();
   }, [media]);
 
-  return (
-    <Link href={`/applications/${media.id}`}>
-      <Box
-        sx={{
-          ...uiConfigs.style.backgroundImage(headerImage),
-          paddingTop: "50%",
-          marginRight: "0.3rem",
-          "&:hover .media-info": { opacity: 1, bottom: 0 },
-          "&:hover .media-back-drop, &:hover .media-play-btn": { opacity: 1 },
-        }}
-      >
-        <Box
-          className="media-back-drop"
-          sx={{
-            opacity: { xs: 1, md: 0 },
-            transition: "all 0.3s ease",
-            width: "100%",
-            height: "100%",
-            position: "absolute",
-            top: 0,
-            left: 0,
-            backgroundImage: "linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0))",
-          }}
-        />
+  const onAddClick = async () => {
+    try {
+      if (isSelectedApp) {
+        await onRemoveSelectedApps();
+        return;
+      }
 
-        <Box
-          className="media-info"
-          sx={{
-            transition: "all 0.3s ease",
-            opacity: { xs: 1, md: 0 },
-            position: "absolute",
-            bottom: { xs: 0, md: "-20px" },
-            width: "100%",
-            heigth: "max-content",
-            boxSizing: "border-box",
-            padding: {
-              xs: "10px",
-              md: "2rem 1rem",
-            },
-          }}
+      setOnRequest(true);
+
+      const payload = {
+        id: media?.id,
+        name: media?.name,
+        headerImage: media?.headerImage || "",
+      };
+
+      await selectedApps.add(payload);
+      setIsSelectedApp(true);
+      setOnRequest(false);
+      toast.success("add selected application success");
+    } catch (err) {
+      toast.error("add selected application failed");
+    }
+  };
+
+  const onRemoveSelectedApps = async () => {
+    try {
+      if (onRequest) return;
+      setOnRequest(true);
+      await selectedApps.remove(media.id);
+      setOnRequest(false);
+      setIsSelectedApp(false);
+      toast.success("remove selected application success");
+    } catch (err) {
+      toast.error("remove selected application failed");
+    }
+  };
+
+  return (
+    <Card sx={{ marginRight: "0.3rem" }}>
+      <CardActionArea LinkComponent={Link} href={`/applications/${media.id}`}>
+        <img
+          style={{ objectFit: "contain", width: "100%", height: "10rem" }}
+          src={media.headerImage}
+          alt={`${name}-header-image`}
+        />
+        <CardContent>
+          <Typography
+            variant="h5"
+            component="div"
+            sx={{
+              fontWeight: 700,
+              color: "text.primary",
+              fontSize: "1rem",
+              ...uiConfigs.style.typoLines(1, "left"),
+            }}
+          >
+            {media.name}
+          </Typography>
+          {media.windows && <FaWindows size={20} style={{ display: "inline" }} />}
+          {media.mac && <FaApple size={20} style={{ display: "inline" }} />}
+          {media.linux && <FaLinux size={20} style={{ display: "inline" }} />}
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <LoadingButton
+          startIcon={isSelectedApp ? <MdLibraryAddCheck /> : <MdLibraryAdd />}
+          variant="contained"
+          size="small"
+          loadingPosition="start"
+          onClick={onAddClick}
+          loading={onRequest}
+          sx={{ width: "max-content" }}
         >
-          <Stack spacing={{ xs: 1, md: 2 }}>
-            <Typography
-              variant="body1"
-              fontWeight="700"
-              sx={{
-                color: "primary.contrastText",
-                fontSize: "1rem",
-                ...uiConfigs.style.typoLines(1, "left"),
-              }}
-            >
-              {name}
-            </Typography>
-          </Stack>
-        </Box>
-      </Box>
-    </Link>
+          <span>{isSelectedApp ? "Added" : "Add to List"}</span>
+        </LoadingButton>
+      </CardActions>
+    </Card>
   );
 };
 
