@@ -170,24 +170,25 @@ export default function Page({ params }: { params: { slug: string } }) {
               </Stack>
             </Box>
           </Box>
-
-          <Container header="videos">
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                paddingTop: "2rem",
-                height: "max-content",
-              }}
-            >
-              <iframe
-                allowFullScreen={true}
-                src={app.movies}
-                title={app.id}
-                style={{ border: 0, width: "90vw", height: "100vh", display: "block" }}
-              ></iframe>
-            </Box>
-          </Container>
+          {app.movies && (
+            <Container header="videos">
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  paddingTop: "2rem",
+                  height: "max-content",
+                }}
+              >
+                <iframe
+                  allowFullScreen={true}
+                  src={app.movies}
+                  title={app.id}
+                  style={{ border: 0, width: "90vw", height: "100vh", display: "block" }}
+                ></iframe>
+              </Box>
+            </Container>
+          )}
           <Container header="About This Application">
             <p style={{ textAlign: "justify", textIndent: "2rem" }}>{app.description}</p>
           </Container>

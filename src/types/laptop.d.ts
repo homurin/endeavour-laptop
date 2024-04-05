@@ -1,3 +1,4 @@
+import { Brand } from "./brand";
 import { Cpu } from "./cpu";
 import { Gallery } from "./galleries";
 import { Gpu } from "./gpu";
@@ -7,6 +8,7 @@ export interface Laptop {
   id: string;
   cpu: Cpu;
   gpu: Gpu;
+  brand: Brand;
   galleries: Array<Gallery>;
   windowsVersion: Windows;
   adminId: string;
@@ -38,6 +40,8 @@ export interface Laptop {
   videos?: string;
   osEdition?: string;
   deleteGalleries?: string[];
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface LaptopRecommendationRequestFields {

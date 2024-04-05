@@ -3,6 +3,10 @@
 import React from "react";
 import LaptopChromebookOutlinedIcon from "@mui/icons-material/LaptopChromebookOutlined";
 import { Box, Button, Stack, Typography, useTheme } from "@mui/material";
+import { FiCpu } from "react-icons/fi";
+import { BsGpuCard } from "react-icons/bs";
+import { FaMemory, FaWindows } from "react-icons/fa";
+import { MdOutlineStorage } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
@@ -117,28 +121,36 @@ const LaptopHeroSlide = () => {
                     spacing={4}
                     direction="column"
                   >
-                    <Typography
-                      variant="h4"
-                      fontSize={{ xs: "2rem", md: "2rem", lg: "4rem" }}
-                      fontWeight="700"
-                      sx={{ ...uiConfigs.style.typoLines(2, "left") }}
-                    >
-                      {laptop.name}
-                    </Typography>
-                    <Typography variant="body1" sx={{ ...uiConfigs.style.typoLines(4) }}>
-                      <strong>CPU : </strong>
-                      {laptop.cpu.name}
-                      <br />
-                      <strong>GPU : </strong>
-                      {laptop.gpu.name}
-                      <br />
-                      <strong>RAM : </strong>
-                      {laptop.ram} GB
-                      <br />
-                      <strong>STORAGE : </strong>
-                      {laptop.ssdStorage + laptop.hddStorage} GB
-                      <br />
-                    </Typography>
+                    <Box>
+                      <Typography
+                        variant="h4"
+                        fontSize={{ xs: "2rem", md: "2rem", lg: "4rem" }}
+                        fontWeight="700"
+                        sx={{ ...uiConfigs.style.typoLines(2, "left") }}
+                      >
+                        {laptop.name}
+                      </Typography>
+                      <Typography variant="body1" sx={{ ...uiConfigs.style.typoLines(1) }}>
+                        <FiCpu className="inline" />
+                        {" " + laptop.cpu.name}
+                      </Typography>
+                      <Typography variant="body1" sx={{ ...uiConfigs.style.typoLines(1) }}>
+                        <BsGpuCard className="inline" />
+                        {" " + laptop.gpu.name}
+                      </Typography>
+                      <Typography variant="body1" sx={{ ...uiConfigs.style.typoLines(1) }}>
+                        <FaMemory className="inline" />
+                        {" " + laptop.ram} GB
+                      </Typography>
+                      <Typography variant="body1" sx={{ ...uiConfigs.style.typoLines(1) }}>
+                        <MdOutlineStorage className="inline" />
+                        {" " + laptop.ssdStorage + laptop.hddStorage} GB
+                      </Typography>
+                      <Typography variant="body1" sx={{ ...uiConfigs.style.typoLines(1) }}>
+                        <FaWindows className="inline" />
+                        {" " + laptop.windowsVersion.name}
+                      </Typography>
+                    </Box>
                     <Button
                       variant="contained"
                       size="large"

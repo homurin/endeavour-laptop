@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper } from "swiper/react";
 
-const NavigationSwiper = ({ children }: { children: React.ReactElement }) => {
+const NavigationSwiper = ({ children }: { children?: React.ReactNode }) => {
   return (
     <Box
       sx={{

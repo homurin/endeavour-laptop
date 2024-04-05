@@ -13,13 +13,14 @@ import { setGlobalLoading } from "@/redux/features/globalLoadingSlice";
 import NavigationSwiper from "@/components/common/NavigationSwiper";
 import LaptopMediaSlide from "@/components/common/LaptopMediaSlide";
 import type { AppDispatch } from "@/redux/store";
+import { Laptop } from "@/types/laptop";
 
 export default function Page({ params }: { params: { slug: string } }) {
   const useAppDispatch = useDispatch.withTypes<AppDispatch>();
   const dispatch = useAppDispatch();
 
-  const [laptop, setLaptop] = useState<any>();
-  const [similarLaptops, setSimilarLaptops] = useState<Array<any>>([]);
+  const [laptop, setLaptop] = useState<Laptop>();
+  const [similarLaptops, setSimilarLaptops] = useState<Array<Laptop>>([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -168,28 +169,29 @@ export default function Page({ params }: { params: { slug: string } }) {
               <br />
             </Typography>
           </Container>
-          <Container header="videos">
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                paddingTop: "2rem",
-                height: "max-content",
-              }}
-            >
-              <iframe
-                allowFullScreen={true}
-                src={laptop.videos}
-                title={laptop.id}
-                style={{ border: 0, width: "90vw", height: "100vh", display: "block" }}
-              ></iframe>
-            </Box>
-          </Container>
-
-          <Container header="backdrops">
-            <NavigationSwiper>
-              {laptop.galleries?.length > 0 &&
-                laptop.galleries.map((gallery: { image: string }, index: number) => {
+          {laptop.videos && (
+            <Container header="videos">
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  paddingTop: "2rem",
+                  height: "max-content",
+                }}
+              >
+                <iframe
+                  allowFullScreen={true}
+                  src={laptop.videos}
+                  title={laptop.id}
+                  style={{ border: 0, width: "90vw", height: "100vh", display: "block" }}
+                ></iframe>
+              </Box>
+            </Container>
+          )}
+          {laptop.galleries?.length > 0 && (
+            <Container header="backdrops">
+              <NavigationSwiper>
+                {laptop.galleries.map((gallery, index) => {
                   return (
                     <SwiperSlide key={index}>
                       <img
@@ -204,8 +206,9 @@ export default function Page({ params }: { params: { slug: string } }) {
                     </SwiperSlide>
                   );
                 })}
-            </NavigationSwiper>
-          </Container>
+              </NavigationSwiper>
+            </Container>
+          )}
           <Container header="similar laptop">
             <LaptopMediaSlide data={similarLaptops} />
           </Container>

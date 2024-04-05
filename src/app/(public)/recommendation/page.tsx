@@ -67,10 +67,6 @@ export default function Page() {
     getLaptops();
   }, [dispatch, query]);
 
-  // useEffect(() => {
-  //   getApps();
-  // }, [query]);
-
   useEffect(() => {
     if (appsReq.length > 0) {
       getLaptops();
