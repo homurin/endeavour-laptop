@@ -90,7 +90,7 @@ const AppMediaItem = ({ media }: { media: Apps }) => {
       </CardActionArea>
       <CardActions>
         <LoadingButton
-          startIcon={isSelectedApp ? <MdLibraryAddCheck /> : <MdLibraryAdd />}
+          startIcon={!isSelectedApp ? <MdLibraryAdd /> : <MdLibraryAddCheck />}
           variant="contained"
           size="small"
           loadingPosition="start"
