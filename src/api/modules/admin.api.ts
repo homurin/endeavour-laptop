@@ -4,15 +4,17 @@ import { Admin } from "@/types/admin";
 
 dotenv.config();
 
+// const token = localStorage.getItem("session_logininfo") || "";
+
 const baseUrl = process.env.NEXT_PUBLIC_ENDEAVOUR_LAPTOP_API;
 const url = `${baseUrl}/api/v1/auth`;
 
 export const login = async (username: string, password: string) => {
   try {
     const send = await axios.post(url + "/login", { username, password });
-    const { token, message }: { token: string; message: string } = send.data;
+    const { user, token, message }: { user: Admin; token: string; message: string } = send.data;
 
-    return { message, isLogin: true, token };
+    return { message, isLogin: true, token, user };
   } catch (err) {
     const error = err as Error;
     if (error instanceof AxiosError) {
@@ -22,20 +24,19 @@ export const login = async (username: string, password: string) => {
   }
 };
 
-export const checkToken = async (token: string) => {
+export const userInfo = async (token: string) => {
   try {
-    const send = await axios.post(url + "/me", { token });
+    const send = await axios.get(url + "/me", { headers: { Authorization: `Bearer ${token}` } });
     const { message, admin }: { message: string; admin: Admin } = send.data;
 
-    return { message, admin, isValid: true };
+    return { message, admin };
   } catch (err) {
     const e = err as Error;
     if (e instanceof AxiosError) {
       return {
         message: e.response?.data.message,
-        isValid: false,
       };
     }
-    return { message: e.message, isValid: false };
+    return { message: e.message };
   }
 };

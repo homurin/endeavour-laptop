@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import "@styles/globals.css";
+import ReduxProvider from "@components/common/Provider";
+import ProtectedLayout from "@/components/dashboard/ProtectedLayout";
+import MainThemeProvider from "@/components/dashboard/MainThemeProvider";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -13,7 +17,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ReduxProvider>
+          <ProtectedLayout>
+            <MainThemeProvider>
+              <DashboardLayout>{children}</DashboardLayout>
+            </MainThemeProvider>
+          </ProtectedLayout>
+        </ReduxProvider>
+      </body>
     </html>
   );
 }

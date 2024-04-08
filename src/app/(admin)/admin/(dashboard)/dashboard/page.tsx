@@ -1,28 +1,21 @@
 "use client";
 
-import { checkToken } from "@/api/modules/admin.api";
-import { redirect } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { Container, Grid } from "@mui/material";
+import ItemOverviewBox from "@/components/dashboard/ItemOverviewBox";
 
-export default function Page() {
-  const [isValid, setIsValid] = useState<boolean>(false);
+const Page = () => {
+  return (
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={4} lg={3}>
+          <ItemOverviewBox title="Laptop" href="/admin/dashboard/laptops" count={10} />
+        </Grid>
+        <Grid item xs={12} md={4} lg={3}>
+          <ItemOverviewBox title="Application" href="/admin/dashboard/applications" count={10} />
+        </Grid>
+      </Grid>
+    </Container>
+  );
+};
 
-  useEffect(() => {
-    const getToken = async () => {
-      const token = sessionStorage.getItem("session_logininfo" || "");
-      if (token) {
-        const { isValid } = await checkToken(token);
-        setIsValid(isValid);
-      }
-    };
-    getToken();
-  }, []);
-
-  useEffect(() => {
-    if (isValid) {
-      redirect("/admin/login");
-    }
-  }, [isValid]);
-
-  return <div>Dashboard Admin</div>;
-}
+export default Page;

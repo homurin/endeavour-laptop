@@ -8,7 +8,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "react-toastify/dist/ReactToastify.css";
-import ReactProvider from "./Provider";
+import ReduxProvider from "@/components/common/Provider";
 import MainLayout from "@/components/layout/MainLayout";
 import MainThemeProvider from "./ThemeProvider";
 
@@ -25,11 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ReactProvider>
+        <ReduxProvider>
           <MainThemeProvider>
             <MainLayout>{children}</MainLayout>
           </MainThemeProvider>
-        </ReactProvider>
+        </ReduxProvider>
       </body>
     </html>
   );
