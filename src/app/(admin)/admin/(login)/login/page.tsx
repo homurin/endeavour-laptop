@@ -1,8 +1,6 @@
 "use client";
 
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import "react-toastify/dist/ReactToastify.css";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
@@ -26,7 +24,7 @@ const defaultTheme = createTheme({ palette: { mode: "dark" } });
 export default function Page() {
   const useAppSelector = useSelector.withTypes<RootState>();
   const { user } = useAppSelector((state) => state.adminState);
-  const [onRequest, setOnRequest] = useState<boolean>(false);
+  const [onRequest, setOnRequest] = useState<boolean>(true);
   const useAppDispatch = useDispatch.withTypes<AppDispatch>();
   const dispatch = useAppDispatch();
 
@@ -60,8 +58,10 @@ export default function Page() {
         const { admin } = await userInfo(token);
         if (!admin) {
           dispatch(setAdmin(null));
+          setOnRequest(false);
         } else {
           dispatch(setAdmin(admin));
+          router.push("/admin/dashboard");
         }
       } else {
         dispatch(setAdmin(null));
@@ -70,11 +70,10 @@ export default function Page() {
     };
     authAdmin();
   }, [dispatch]);
-  if (user && !onRequest) {
-    router.push("/admin/dashboard");
-  }
+
   return (
-    !user && (
+    !user &&
+    !onRequest && (
       <ThemeProvider theme={defaultTheme}>
         <ToastContainer
           position="bottom-left"

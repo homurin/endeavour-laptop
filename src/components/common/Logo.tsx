@@ -8,7 +8,7 @@ export default function Logo() {
     <div className="flex items-center">
       <img className="w-5 h-5 inline mr-1" src="/images/logo.png" alt="logo" />
       <Typography className="inline" fontWeight="700" fontSize="1.7rem">
-        <span style={{ color: theme.palette.primary.main }}>End</span>eavour
+        <span style={{ color: "#ff0000" }}>End</span>eavour
       </Typography>
     </div>
   );

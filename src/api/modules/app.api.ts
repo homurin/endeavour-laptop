@@ -79,3 +79,17 @@ export const getOneApp = async (id: string) => {
     return { message: error.message };
   }
 };
+
+export const removeOneApp = async (id: string, token: string) => {
+  try {
+    const res = await axios.delete(`${url}/${id}`, { headers: { Authorization: token } });
+    const { message } = res.data;
+    return { message };
+  } catch (err) {
+    const e = err as Error;
+    if (e instanceof AxiosError) {
+      return { message: e.response?.data.message };
+    }
+    return { message: e.message };
+  }
+};

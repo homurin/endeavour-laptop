@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "react-toastify/dist/ReactToastify.css";
 import "@styles/globals.css";
 import ReduxProvider from "@components/common/Provider";
 import ProtectedLayout from "@/components/dashboard/ProtectedLayout";

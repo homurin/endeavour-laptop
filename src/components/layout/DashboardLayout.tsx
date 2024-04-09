@@ -2,7 +2,6 @@
 
 import { Box, Toolbar } from "@mui/material";
 import Navbar from "../dashboard/Navbar";
-import Copyright from "../dashboard/Copyright";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -21,7 +20,6 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         <Toolbar />
         {children}
       </Box>
-      <Copyright year={2024} />
     </Box>
   );
 };

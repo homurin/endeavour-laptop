@@ -14,6 +14,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import NavItem from "@/components/dashboard/NavItem";
+import Logo from "../common/Logo";
 
 const drawerWidth = 240;
 
@@ -24,6 +25,7 @@ interface AppBarProps extends MuiAppBarProps {
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "!open",
 })<AppBarProps>(({ theme, open }) => ({
+  backgroundColor: "rgb(8 51 68)",
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
@@ -93,6 +95,7 @@ const Navbar = () => {
         <Toolbar
           sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end", px: [1] }}
         >
+          <Logo />
           <IconButton onClick={toggleDrawer}>
             <ChevronLeftIcon />
           </IconButton>
