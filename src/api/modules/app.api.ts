@@ -52,10 +52,7 @@ export const getMostExpensiveApps = async (size: number) => {
 export const getManyApp = async (name: string, page: number) => {
   try {
     const get = await axios.get(`${url}?search=${name}&page=${page}&size=40`);
-    const { message, apps } = get.data as { message: string; apps: Array<Apps> } as {
-      message: string;
-      apps: Array<Apps>;
-    };
+    const { message, apps } = get.data as { message: string; apps: Array<Apps> };
     return { message, apps };
   } catch (err) {
     const error = err as Error;

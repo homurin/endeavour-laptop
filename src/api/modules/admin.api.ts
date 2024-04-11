@@ -4,8 +4,6 @@ import { Admin } from "@/types/admin";
 
 dotenv.config();
 
-// const token = localStorage.getItem("session_logininfo") || "";
-
 const baseUrl = process.env.NEXT_PUBLIC_ENDEAVOUR_LAPTOP_API;
 const url = `${baseUrl}/api/v1/auth`;
 

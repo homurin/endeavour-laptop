@@ -16,7 +16,7 @@ const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
   const { user } = useAppSelector((state) => state.adminState);
   useEffect(() => {
     const authAdmin = async () => {
-      const token = sessionStorage.getItem("authtoken");
+      const token = localStorage.getItem("authtoken");
       if (token) {
         const { admin } = await userInfo(token);
         if (!admin) {

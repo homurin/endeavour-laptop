@@ -23,6 +23,7 @@ import DeleteAlert from "@/components/dashboard/DeleteAlert";
 
 const page = () => {
   const [apps, setApps] = useState<Array<Apps>>([]);
+  const [appsLength, setAppsLength] = useState<number>(0);
   const [selectedApp, setSelectedApp] = useState<{ id: string; name: string } | null>(null);
   const [onSearch, setOnSearch] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
@@ -36,6 +37,7 @@ const page = () => {
     }
     if (apps) {
       setApps(apps);
+      setAppsLength(apps.length);
     }
     setOnSearch(false);
   };
@@ -51,10 +53,9 @@ const page = () => {
 
   const onConfirmRemove = async () => {
     if (selectedApp?.id) {
-      const token = sessionStorage.getItem("authtoken") || "";
+      const token = localStorage.getItem("authtoken") || "";
       const { message } = await removeOneApp(selectedApp?.id, token);
       toast.success(message);
-      fetchData();
     }
     setSelectedApp(null);
     setOpen(false);
@@ -145,7 +146,7 @@ const page = () => {
             Prev
           </LoadingButton>
         )}
-        {apps.length >= 40 && (
+        {appsLength >= 40 && (
           <LoadingButton
             loading={onSearch}
             onClick={() => {

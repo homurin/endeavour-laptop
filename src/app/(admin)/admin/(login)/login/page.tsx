@@ -41,7 +41,7 @@ export default function Page() {
 
       if (isLogin && token) {
         dispatch(setAdmin(user));
-        sessionStorage.setItem("authtoken", token);
+        localStorage.setItem("authtoken", token);
         router.push("/admin/dashboard");
       } else {
         dispatch(setAdmin(null));
@@ -53,7 +53,7 @@ export default function Page() {
   );
   useEffect(() => {
     const authAdmin = async () => {
-      const token = sessionStorage.getItem("authtoken");
+      const token = localStorage.getItem("authtoken");
       if (token) {
         const { admin } = await userInfo(token);
         if (!admin) {

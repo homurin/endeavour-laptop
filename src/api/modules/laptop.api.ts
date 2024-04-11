@@ -1,4 +1,4 @@
-import { Laptop, LaptopRecommendationRequestFields } from "@/types/laptop";
+import { Laptop } from "@/types/laptop";
 import axios, { AxiosError } from "axios";
 
 const baseUrl = process.env.NEXT_PUBLIC_ENDEAVOUR_LAPTOP_API;
