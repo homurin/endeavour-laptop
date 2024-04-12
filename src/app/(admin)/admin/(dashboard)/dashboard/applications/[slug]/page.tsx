@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { getOneApp } from "@/api/modules/app.api";
 import { Apps } from "@/types/application";
-import { toast } from "react-toastify";
+import AppForm from "@/components/dashboard/AppForm";
 
 const page = ({ params }: { params: { slug: string } }) => {
   const [app, setApp] = useState<Apps>();
@@ -18,12 +19,7 @@ const page = ({ params }: { params: { slug: string } }) => {
     };
     getApp();
   }, []);
-
-  return (
-    <div>
-      App {params.slug} <p>{app?.name}</p>
-    </div>
-  );
+  return <>{app ? <AppForm data={app} /> : null}</>;
 };
 
 export default page;

@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
 import dotenv from "dotenv";
-import { Apps } from "@/types/application";
+import { ApplicationCreate, Apps } from "@/types/application";
+import { headers } from "next/headers";
 dotenv.config();
 
 const baseUrl = process.env.NEXT_PUBLIC_ENDEAVOUR_LAPTOP_API;
@@ -49,9 +50,17 @@ export const getMostExpensiveApps = async (size: number) => {
   }
 };
 
-export const getManyApp = async (name: string, page: number) => {
+export const getManyApp = async (
+  name: string,
+  page: number,
+  order: { sortBy?: string; orderBy?: string }
+) => {
   try {
-    const get = await axios.get(`${url}?search=${name}&page=${page}&size=40`);
+    const get = await axios.get(
+      `${url}?search=${name}&page=${page}&size=40${
+        order.sortBy && order.orderBy && `&sort_by=${order.sortBy}&order_by=${order.orderBy}`
+      }`
+    );
     const { message, apps } = get.data as { message: string; apps: Array<Apps> };
     return { message, apps };
   } catch (err) {
@@ -74,6 +83,44 @@ export const getOneApp = async (id: string) => {
       return { message: error.response?.data.message };
     }
     return { message: error.message };
+  }
+};
+
+export const createOneApp = async (data: ApplicationCreate, token: string) => {
+  try {
+    const response = await axios.post(`${url}`, data, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const { app, message } = response.data as { message: string; app: Apps };
+    return {
+      app,
+      message,
+    };
+  } catch (err) {
+    const e = err as Error;
+    if (e instanceof AxiosError) {
+      return { message: e.response?.data.message };
+    }
+    return { message: e.message };
+  }
+};
+
+export const updateOneApp = async (id: string, data: ApplicationCreate, token: string) => {
+  try {
+    const response = await axios.patch(`${url}/${id}`, data, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const { app, message } = response.data as { message: string; app: Apps };
+    return {
+      app,
+      message,
+    };
+  } catch (err) {
+    const e = err as Error;
+    if (e instanceof AxiosError) {
+      return { message: e.response?.data.message };
+    }
+    return { message: e.message };
   }
 };
 

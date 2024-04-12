@@ -5,7 +5,7 @@ export interface Apps {
   id: string;
   minOs: Windows;
   adminId: string;
-  windId: string;
+  winId: string;
   name: string;
   headerImageId?: string;
   screenshotsId?: string;
@@ -47,4 +47,26 @@ export interface MinimumAppsRequirements {
   totalStorage: number;
   windowsName: string;
   buildNumber: number;
+}
+
+export interface ApplicationCreate extends FormData {
+  winId: string;
+  name: string;
+  price: number;
+  releaseDate: Date;
+  description?: string;
+  developers?: string;
+  publishers?: string;
+  minCpuSpeed: number;
+  minCores: number;
+  minGpuBoostClock: number;
+  minGpuMemory: number;
+  minDirectX: number;
+  minOpenGl: number;
+  minRam: number;
+  minStorage: number;
+  bitOs: number;
+  headerImage?: File;
+  screenshots?: File;
+  movies?: File;
 }

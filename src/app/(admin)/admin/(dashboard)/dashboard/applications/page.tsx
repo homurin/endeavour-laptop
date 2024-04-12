@@ -20,6 +20,7 @@ import { Apps } from "@/types/application";
 import { toast } from "react-toastify";
 import Title from "@/components/dashboard/Title";
 import DeleteAlert from "@/components/dashboard/DeleteAlert";
+import { orderBy } from "lodash";
 
 const page = () => {
   const [apps, setApps] = useState<Array<Apps>>([]);
@@ -31,7 +32,10 @@ const page = () => {
   const [query, setQuery] = useState<string>("");
 
   const fetchData = async () => {
-    const { message, apps } = await getManyApp(query, page);
+    const { message, apps } = await getManyApp(query, page, {
+      sortBy: "created_at",
+      orderBy: "desc",
+    });
     if (!apps) {
       toast.error(message);
     }
@@ -55,6 +59,8 @@ const page = () => {
     if (selectedApp?.id) {
       const token = localStorage.getItem("authtoken") || "";
       const { message } = await removeOneApp(selectedApp?.id, token);
+      const filtered = apps.filter((e) => e.id !== selectedApp.id);
+      setApps(filtered);
       toast.success(message);
     }
     setSelectedApp(null);
@@ -98,10 +104,10 @@ const page = () => {
               </TableHead>
               <TableBody>
                 {apps.length > 0 &&
-                  apps.map((app, i) => {
+                  apps.map((app) => {
                     return (
                       <TableRow key={app.id}>
-                        <TableCell>{i + 1 + app.id}</TableCell>
+                        <TableCell>{app.id}</TableCell>
                         <TableCell>{app.name}</TableCell>
                         <TableCell>
                           <Button
