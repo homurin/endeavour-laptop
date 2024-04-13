@@ -6,9 +6,9 @@ dotenv.config();
 const baseUrl = process.env.NEXT_PUBLIC_ENDEAVOUR_LAPTOP_API;
 const url = `${baseUrl}/api/v1/brands`;
 
-export const getManyBrand = async (name: string) => {
+export const getManyBrand = async (name?: string) => {
   try {
-    const get = await axios.get(`${url}?search=${name}`);
+    const get = await axios.get(`${url}?${name ? `search=${name}` : ""}`);
     const { message, brands } = get.data as { message: string; brands: Array<Brand> };
     return { message, brands };
   } catch (err) {

@@ -1,4 +1,4 @@
-import { Laptop } from "@/types/laptop";
+import { Laptop, LaptopFormProps } from "@/types/laptop";
 import axios, { AxiosError } from "axios";
 
 const baseUrl = process.env.NEXT_PUBLIC_ENDEAVOUR_LAPTOP_API;
@@ -24,7 +24,7 @@ export const getRandomLaptops = async () => {
 
 export const getNewestLaptop = async (size: number) => {
   try {
-    const get = await axios.get(`${url}?page=1&size=${size}&=sort_by=release_date&order_by=desc`);
+    const get = await axios.get(`${url}?page=1&size=${size}&sort_by=created_at&order_by=desc`);
     const { message, laptops } = get.data as { message: string; laptops: Array<Laptop> };
     console.info(laptops);
     return { message, laptops };
@@ -51,9 +51,17 @@ export const getMostExpensiveLaptops = async (size: number) => {
   }
 };
 
-export const getManyLaptop = async (name: string, page: number) => {
+export const getManyLaptop = async (
+  name: string,
+  page: number,
+  order?: { sortBy: string; orderBy: string }
+) => {
   try {
-    const get = await axios.get(`${url}?search=${name}&page=${page}&size=40`);
+    const get = await axios.get(
+      `${url}?search=${name}&page=${page}&size=40${
+        order?.sortBy && order?.orderBy ? `&sort_by=${order.sortBy}&order_by=${order.orderBy}` : ""
+      }`
+    );
     const { message, laptops } = get.data as { message: string; laptops: Array<Laptop> } as {
       message: string;
       laptops: Array<Laptop>;
@@ -65,6 +73,20 @@ export const getManyLaptop = async (name: string, page: number) => {
       return { message: error.response?.data.message };
     }
     return { message: error.message };
+  }
+};
+
+export const removeOneLaptop = async (id: string, token: string) => {
+  try {
+    const res = await axios.delete(`${url}/${id}`, { headers: { Authorization: token } });
+    const { message } = res.data;
+    return { message };
+  } catch (err) {
+    const e = err as Error;
+    if (e instanceof AxiosError) {
+      return { message: e.response?.data.message };
+    }
+    return { message: e.message };
   }
 };
 
@@ -82,6 +104,44 @@ export const getLaptopDetail = async (id: string) => {
       return { message: error.response?.data.message };
     }
     return { message: error.message };
+  }
+};
+
+export const createOneLaptop = async (data: LaptopFormProps, token: string) => {
+  try {
+    const res = await axios.post(url, data, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const { laptop, message } = res.data as { laptop: Laptop; message: string };
+    return {
+      laptop,
+      message,
+    };
+  } catch (err) {
+    const e = err as Error;
+    if (e instanceof AxiosError) {
+      return { message: e.message };
+    }
+    return { message: e.message };
+  }
+};
+
+export const updateOneLaptop = async (id: string, data: LaptopFormProps, token: string) => {
+  try {
+    const res = await axios.patch(`${url}/${id}`, data, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const { laptop, message } = res.data as { laptop: Laptop; message: string };
+    return {
+      laptop,
+      message,
+    };
+  } catch (err) {
+    const e = err as Error;
+    if (e instanceof AxiosError) {
+      return { message: e.message };
+    }
+    return { message: e.message };
   }
 };
 

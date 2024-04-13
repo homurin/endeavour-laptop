@@ -39,7 +39,7 @@ export interface Laptop {
   thumb?: string;
   videos?: string;
   osEdition?: string;
-  deleteGalleries?: string[];
+
   createdAt: Date;
   updatedAt: Date;
 }
@@ -54,4 +54,11 @@ export interface LaptopRecommendationRequestFields {
   minRam: number;
   minStorage: number;
   minOs: number;
+}
+
+export interface LaptopFormProps extends Laptop, FormData {
+  thumb?: File;
+  videos?: File;
+  galleries?: FileList;
+  deleteGalleries?: string[];
 }

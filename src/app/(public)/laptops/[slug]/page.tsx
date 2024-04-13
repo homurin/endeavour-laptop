@@ -14,6 +14,7 @@ import NavigationSwiper from "@/components/common/NavigationSwiper";
 import LaptopMediaSlide from "@/components/common/LaptopMediaSlide";
 import type { AppDispatch } from "@/redux/store";
 import { Laptop } from "@/types/laptop";
+import { dateFormatFromIsoString } from "@/utils/parseDate";
 
 export default function Page({ params }: { params: { slug: string } }) {
   const useAppDispatch = useDispatch.withTypes<AppDispatch>();
@@ -40,7 +41,7 @@ export default function Page({ params }: { params: { slug: string } }) {
 
   return laptop ? (
     <>
-      <ImageHeader imgPath={laptop.galleries?.[0].image || ""} />
+      <ImageHeader imgPath={laptop.galleries?.[0]?.image || ""} />
       <Box sx={{ color: "primary.contrastText", ...uiConfigs.style.mainContent }}>
         <Box sx={{ marginTop: { xs: "-10rem", md: "-15rem", lg: "-20rem" } }}>
           <Box sx={{ display: "flex", flexDirection: { md: "row", xs: "column" } }}>
@@ -97,8 +98,7 @@ export default function Page({ params }: { params: { slug: string } }) {
                     {laptop.brand?.name}
                     <br />
                     <strong>Post Date : </strong>
-                    {new Date(laptop.createdAt).getDate()}/{new Date(laptop.createdAt).getDay()}/
-                    {new Date(laptop.createdAt).getFullYear()}
+                    {dateFormatFromIsoString(laptop.createdAt)}
                     <br />
                   </Typography>
                 </Container>
@@ -143,7 +143,8 @@ export default function Page({ params }: { params: { slug: string } }) {
               <strong>OS Version : </strong>
               {laptop.windowsVersion?.name}
               <br />
-              <strong>OS Edition : </strong>${laptop.osEdition}
+              <strong>OS Edition : </strong>
+              {laptop.osEdition}
               <br />
               <strong>Brand Name : </strong>
               {laptop.brand?.name}
@@ -164,8 +165,7 @@ export default function Page({ params }: { params: { slug: string } }) {
               {laptop.weight} Kg
               <br />
               <strong>Post Date : </strong>
-              {new Date(laptop.createdAt).getDate()}/{new Date(laptop.createdAt).getDay()}/
-              {new Date(laptop.createdAt).getFullYear()}
+              {dateFormatFromIsoString(laptop.createdAt)}
               <br />
             </Typography>
           </Container>

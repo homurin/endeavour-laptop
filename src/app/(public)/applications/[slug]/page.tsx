@@ -104,7 +104,7 @@ export default function Page({ params }: { params: { slug: string } }) {
   return (
     app && (
       <>
-        <ImageHeader imgPath={app.screenshots || ""} />
+        <ImageHeader imgPath={app?.screenshots || ""} />
         <Box sx={{ color: "primary.contrastText", ...uiConfigs.style.mainContent }}>
           <Box sx={{ marginTop: { xs: "-10rem", md: "-15rem", lg: "-20rem" } }}>
             <Box sx={{ display: "flex", flexDirection: { md: "row", xs: "column" } }}>

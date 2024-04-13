@@ -14,14 +14,13 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 import { useRouter } from "next/navigation";
-import { FaWindows, FaApple, FaLinux } from "react-icons/fa";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import { getManyWindows } from "@/api/modules/windows.api";
-import React, { FormEvent, useCallback, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { Windows } from "@/types/windows";
 import { toast } from "react-toastify";
 import { createOneApp, updateOneApp } from "@/api/modules/app.api";
-import { ApplicationCreate, Apps } from "@/types/application";
+import { ApplicationForm, Apps } from "@/types/application";
 import { LoadingButton } from "@mui/lab";
 import { dateFormatFromIsoString } from "@/utils/parseDate";
 
@@ -38,12 +37,8 @@ const ImageInput = ({
   label?: string;
   id?: string;
 }) => {
-  const [fileUrl, setFileUrl] = useState<string>();
-  useEffect(() => {
-    if (src) {
-      setFileUrl(src);
-    }
-  }, [src]);
+  const [fileUrl, setFileUrl] = useState<string>(src || "");
+
   return (
     <>
       <FormLabel htmlFor={id}>{label}</FormLabel>
@@ -77,12 +72,8 @@ const VideosInput = ({
   label?: string;
   id?: string;
 }) => {
-  const [fileUrl, setFileUrl] = useState<string>();
-  useEffect(() => {
-    if (src) {
-      setFileUrl(src);
-    }
-  }, [src]);
+  const [fileUrl, setFileUrl] = useState<string>(src || "");
+
   return (
     <>
       <FormLabel htmlFor={id}>{label}</FormLabel>
@@ -106,75 +97,48 @@ const VideosInput = ({
 };
 
 const AppForm = ({ data }: { data?: Apps }) => {
-  const [query, setQuery] = useState<string>("");
   const [windowsList, setWindowsList] = useState<Windows[]>([]);
   const [onRequest, setOnRequest] = useState<boolean>(false);
-  const [winId, setWinId] = useState<string>("");
-  const [name, setName] = useState<string>("");
-  const [price, setPrice] = useState<number>(0);
-  const [date, setDate] = useState<string>(dateFormatFromIsoString(new Date()));
+  const [winId, setWinId] = useState<string>(data?.winId || "");
+  const [name, setName] = useState<string>(data?.name || "");
+  const [price, setPrice] = useState<number>(data?.price || 0);
+  const [date, setDate] = useState<string>(
+    dateFormatFromIsoString(data?.releaseDate || new Date())
+  );
   const [isoDate, setIsoDate] = useState<Date>(new Date());
-  const [description, setDescription] = useState<string>("");
-  const [minCpuSpeed, setMinCpuSpeed] = useState<number>(0);
-  const [minCpuCores, setMinCpuCores] = useState<number>(0);
-  const [minGpuBoostClock, setMinGpuBoostClock] = useState<number>(0);
-  const [minGpuMemory, setMinGpuMemory] = useState<number>(0);
-  const [minDirectX, setMinDirectX] = useState<number>(0);
-  const [minOpenGl, setMinOpenGl] = useState<number>(0);
-  const [minRam, setMinRam] = useState<number>(0);
-  const [minStorage, setMinStorage] = useState<number>(0);
-  const [developers, setDevelopers] = useState<string>("");
-  const [publishers, setPublishers] = useState<string>("");
-  const [windows, setWindows] = useState<boolean>(true);
-  const [linux, setLinux] = useState<boolean>(false);
-  const [mac, setMac] = useState<boolean>(false);
-  const [headerImage, setHeaderImage] = useState<string>("");
-  const [screenshots, setScreenshots] = useState<string>("");
-  const [movies, setMovies] = useState<string>("");
-  const [bitOs, setBitOs] = useState<number>(64);
+  const [description, setDescription] = useState<string>(data?.description || "");
+  const [minCpuSpeed, setMinCpuSpeed] = useState<number>(data?.minCpuSpeed || 0);
+  const [minCpuCores, setMinCpuCores] = useState<number>(data?.minCores || 0);
+  const [minGpuBoostClock, setMinGpuBoostClock] = useState<number>(data?.minGpuBoostClock || 0);
+  const [minGpuMemory, setMinGpuMemory] = useState<number>(data?.minGpuMemory || 0);
+  const [minDirectX, setMinDirectX] = useState<number>(data?.minDirectX || 12);
+  const [minOpenGl, setMinOpenGl] = useState<number>(data?.minOpenGl || 4.6);
+  const [minRam, setMinRam] = useState<number>(data?.minRam || 0);
+  const [minStorage, setMinStorage] = useState<number>(data?.minStorage || 0);
+  const [developers, setDevelopers] = useState<string>(data?.developers || "");
+  const [publishers, setPublishers] = useState<string>(data?.publishers || "");
+  const [windows, setWindows] = useState<boolean>(data?.windows || true);
+  const [linux, setLinux] = useState<boolean>(data?.linux || false);
+  const [mac, setMac] = useState<boolean>(data?.mac || false);
+  const [headerImage, setHeaderImage] = useState<string>(data?.headerImage || "");
+  const [screenshots, setScreenshots] = useState<string>(data?.screenshots || "");
+  const [movies, setMovies] = useState<string>(data?.movies || "");
+  const [bitOs, setBitOs] = useState<number>(data?.bitOs || 64);
 
   const router = useRouter();
 
-  const getWindows = useCallback(async () => {
-    const { windows, message } = await getManyWindows(query);
+  const getWindows = async () => {
+    const { windows, message } = await getManyWindows();
     if (windows) {
       setWindowsList(windows);
       return;
     }
     toast.error(message);
-  }, [query]);
-
-  const fillPrevData = (data: Apps) => {
-    setName(data.name || "");
-    setPrice(data.price || 0);
-    setDate(dateFormatFromIsoString(data.releaseDate || new Date()));
-    setDescription(data.description || "");
-    setMinCpuSpeed(data.minCpuSpeed);
-    setMinCpuCores(data.minCores);
-    setMinGpuBoostClock(data.minGpuBoostClock);
-    setMinGpuMemory(data.minGpuMemory);
-    setMinDirectX(data.minDirectX);
-    setMinOpenGl(data.minOpenGl);
-    setMinRam(data.minRam);
-    setMinStorage(data.minStorage);
-    setDevelopers(data.developers || "");
-    setPublishers(data.publishers || "");
-    setWindows(data.windows);
-    setLinux(data.linux);
-    setMac(data.mac);
-    setWinId(data.winId);
-    setBitOs(data.bitOs);
-    setHeaderImage(data.headerImage || "");
-    setScreenshots(data.screenshots || "");
-    setMovies(data.movies || "");
   };
 
   useEffect(() => {
     getWindows();
-    if (data) {
-      fillPrevData(data);
-    }
-  }, [query]);
+  }, []);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     setOnRequest(true);
@@ -182,7 +146,7 @@ const AppForm = ({ data }: { data?: Apps }) => {
     const formData = new FormData(e.currentTarget);
 
     const token = localStorage.getItem("authtoken");
-    const appData = formData as ApplicationCreate;
+    const appData = formData as ApplicationForm;
     appData?.append("releaseDate", isoDate.toISOString());
 
     if (token) {

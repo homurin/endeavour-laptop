@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import dotenv from "dotenv";
-import { ApplicationCreate, Apps } from "@/types/application";
-import { headers } from "next/headers";
+import { ApplicationForm, Apps } from "@/types/application";
+
 dotenv.config();
 
 const baseUrl = process.env.NEXT_PUBLIC_ENDEAVOUR_LAPTOP_API;
@@ -53,12 +53,12 @@ export const getMostExpensiveApps = async (size: number) => {
 export const getManyApp = async (
   name: string,
   page: number,
-  order: { sortBy?: string; orderBy?: string }
+  order?: { sortBy?: string; orderBy?: string }
 ) => {
   try {
     const get = await axios.get(
       `${url}?search=${name}&page=${page}&size=40${
-        order.sortBy && order.orderBy && `&sort_by=${order.sortBy}&order_by=${order.orderBy}`
+        order?.sortBy && order?.orderBy ? `&sort_by=${order.sortBy}&order_by=${order.orderBy}` : ""
       }`
     );
     const { message, apps } = get.data as { message: string; apps: Array<Apps> };
@@ -86,7 +86,7 @@ export const getOneApp = async (id: string) => {
   }
 };
 
-export const createOneApp = async (data: ApplicationCreate, token: string) => {
+export const createOneApp = async (data: ApplicationForm, token: string) => {
   try {
     const response = await axios.post(`${url}`, data, {
       headers: { Authorization: `Bearer ${token}` },
@@ -105,7 +105,7 @@ export const createOneApp = async (data: ApplicationCreate, token: string) => {
   }
 };
 
-export const updateOneApp = async (id: string, data: ApplicationCreate, token: string) => {
+export const updateOneApp = async (id: string, data: ApplicationForm, token: string) => {
   try {
     const response = await axios.patch(`${url}/${id}`, data, {
       headers: { Authorization: `Bearer ${token}` },

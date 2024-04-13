@@ -1,5 +1,6 @@
 import * as Application from "@repository/applicationRepository";
 import { Windows } from "./windows";
+import App from "next/app";
 
 export interface Apps {
   id: string;
@@ -49,23 +50,7 @@ export interface MinimumAppsRequirements {
   buildNumber: number;
 }
 
-export interface ApplicationCreate extends FormData {
-  winId: string;
-  name: string;
-  price: number;
-  releaseDate: Date;
-  description?: string;
-  developers?: string;
-  publishers?: string;
-  minCpuSpeed: number;
-  minCores: number;
-  minGpuBoostClock: number;
-  minGpuMemory: number;
-  minDirectX: number;
-  minOpenGl: number;
-  minRam: number;
-  minStorage: number;
-  bitOs: number;
+export interface ApplicationForm extends App, FormData {
   headerImage?: File;
   screenshots?: File;
   movies?: File;
