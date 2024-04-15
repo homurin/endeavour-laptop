@@ -3,6 +3,7 @@
 import { MdLibraryAdd, MdLibraryAddCheck } from "react-icons/md";
 import { LoadingButton } from "@mui/lab";
 import { Box, Stack, Typography } from "@mui/material";
+import { notFound } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
@@ -29,18 +30,15 @@ export default function Page({ params }: { params: { slug: string } }) {
   const [laptops, setLaptops] = useState<Array<Laptop>>([]);
   const [randomApps, setRandomApps] = useState<Array<Apps>>([]);
   const [isSelectedApp, setIsSelectedApp] = useState<boolean>(false);
-  const [onRequest, setOnRequest] = useState<boolean>(false);
+  const [onRequest, setOnRequest] = useState<boolean>(true);
 
   useEffect(() => {
+    dispatch(setGlobalLoading(true));
+    setOnRequest(true);
     window.scrollTo(0, 0);
     const getData = async () => {
-      dispatch(setGlobalLoading(true));
-      const { message: appMsg, app } = await getOneApp(params.slug);
+      const { app } = await getOneApp(params.slug);
       const { message: appsMsg, apps } = await getRandomApps();
-
-      if (!app) {
-        toast.error(appMsg);
-      }
 
       if (!apps) {
         return toast.error(appsMsg);
@@ -60,10 +58,15 @@ export default function Page({ params }: { params: { slug: string } }) {
       if (isSelectedAppExist) setIsSelectedApp(true);
 
       dispatch(setGlobalLoading(false));
+      setOnRequest(false);
     };
 
     getData();
   }, [dispatch]);
+
+  if (!app && !onRequest) {
+    notFound();
+  }
 
   const onAddClick = async () => {
     try {
@@ -101,6 +104,7 @@ export default function Page({ params }: { params: { slug: string } }) {
       toast.error("remove selected application failed");
     }
   };
+
   return (
     app && (
       <>

@@ -7,7 +7,7 @@ import {
   Button,
 } from "@mui/material";
 
-export default function DeleteAlert({
+export default function ConfirmAlert({
   key,
   title,
   message,

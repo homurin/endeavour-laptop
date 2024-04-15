@@ -4,6 +4,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { notFound } from "next/navigation";
 import { SwiperSlide } from "swiper/react";
 import Container from "@/components/common/Container";
 import ImageHeader from "@/components/common/ImageHeader";
@@ -22,22 +23,28 @@ export default function Page({ params }: { params: { slug: string } }) {
 
   const [laptop, setLaptop] = useState<Laptop>();
   const [similarLaptops, setSimilarLaptops] = useState<Array<Laptop>>([]);
+  const [onRequest, setOnRequest] = useState<boolean>(true);
 
   useEffect(() => {
+    dispatch(setGlobalLoading(true));
+    setOnRequest(true);
+
     window.scrollTo(0, 0);
     const getData = async () => {
-      dispatch(setGlobalLoading(true));
-      const { message: laptopMsg, laptop } = await getLaptopDetail(params.slug);
-      const { message: laptopsMsg, laptops } = await getSimilarLaptops(params.slug);
-      dispatch(setGlobalLoading(false));
+      const { laptop } = await getLaptopDetail(params.slug);
+      const { laptops } = await getSimilarLaptops(params.slug);
 
-      if (laptopMsg !== "success") toast.error(laptopMsg);
-      if (laptopsMsg !== "success") toast.error(laptopsMsg);
       if (laptop) setLaptop(laptop);
       if (laptops) setSimilarLaptops(laptops);
+      dispatch(setGlobalLoading(false));
+      setOnRequest(false);
     };
     getData();
   }, [dispatch]);
+
+  if (!laptop && !onRequest) {
+    notFound();
+  }
 
   return laptop ? (
     <>

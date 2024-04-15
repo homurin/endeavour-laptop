@@ -4,6 +4,23 @@ import { Gallery } from "./galleries";
 import { Gpu } from "./gpu";
 import { Windows } from "./windows";
 
+export enum PanelType {
+  CRT = "CRT",
+  LCD = "LCD",
+  LED = "LED",
+  TN = "TN",
+  IPS = "IPS",
+  VA = "VA",
+  OLED = "OLED",
+  AMOLED = "AMOLED",
+}
+
+export enum WindowsEdition {
+  HOME = "HOME",
+  S = "S",
+  PRO = "PRO",
+}
+
 export interface Laptop {
   id: string;
   cpu: Cpu;
@@ -27,19 +44,14 @@ export interface Laptop {
   displayName?: string;
   displaySize?: number;
   displayResolution?: string;
-  panelType?: string;
+  panelType?: PanelType;
   panelCode?: number;
   refreshRate?: number;
   weight?: number;
-  suitableFor?: string;
-  isNew?: boolean;
-  gamingScore?: number;
-  workstationScore: number;
   odEdition?: string;
   thumb?: string;
   videos?: string;
-  osEdition?: string;
-
+  osEdition?: WindowsEdition;
   createdAt: Date;
   updatedAt: Date;
 }

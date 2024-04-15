@@ -1,5 +1,5 @@
-import { Laptop, LaptopFormProps } from "@/types/laptop";
 import axios, { AxiosError } from "axios";
+import { Laptop, LaptopFormProps } from "@/types/laptop";
 
 const baseUrl = process.env.NEXT_PUBLIC_ENDEAVOUR_LAPTOP_API;
 const recommendationBaseUrl = process.env.NEXT_PUBLIC_ENDEAVOUR_RECOMMENDER_API;
@@ -26,7 +26,7 @@ export const getNewestLaptop = async (size: number) => {
   try {
     const get = await axios.get(`${url}?page=1&size=${size}&sort_by=created_at&order_by=desc`);
     const { message, laptops } = get.data as { message: string; laptops: Array<Laptop> };
-    console.info(laptops);
+
     return { message, laptops };
   } catch (err) {
     const error = err as Error;
@@ -94,6 +94,7 @@ export const getLaptopDetail = async (id: string) => {
   try {
     const get = await axios.get(`${url}/${id}`);
     const { message, laptop } = get.data as { message: string; laptop: Laptop };
+
     return {
       message,
       laptop,
@@ -120,7 +121,7 @@ export const createOneLaptop = async (data: LaptopFormProps, token: string) => {
   } catch (err) {
     const e = err as Error;
     if (e instanceof AxiosError) {
-      return { message: e.message };
+      return { message: e.response?.data.message };
     }
     return { message: e.message };
   }
@@ -139,7 +140,7 @@ export const updateOneLaptop = async (id: string, data: LaptopFormProps, token: 
   } catch (err) {
     const e = err as Error;
     if (e instanceof AxiosError) {
-      return { message: e.message };
+      return { message: e.response?.data.message };
     }
     return { message: e.message };
   }

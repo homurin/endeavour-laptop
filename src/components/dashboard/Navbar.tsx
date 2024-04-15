@@ -9,12 +9,16 @@ import {
   IconButton,
   styled,
   List,
+  Badge,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import LogoutIcon from "@mui/icons-material/Logout";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import NavItem from "@/components/dashboard/NavItem";
 import Logo from "../common/Logo";
+import ConfirmAlert from "./ConfirmAlert";
+import { useRouter } from "next/navigation";
 
 const drawerWidth = 240;
 
@@ -67,11 +71,29 @@ const Drawer = styled(MuiDrawer, {
 
 const Navbar = () => {
   const [open, setOpen] = useState<boolean>(true);
+  const [openLogout, setOpenLogout] = useState<boolean>(false);
+
+  const router = useRouter();
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
+  const handleLogout = () => {
+    setOpenLogout(false);
+    localStorage.removeItem("authtoken");
+    router.push("/admin/login");
+  };
   return (
     <>
+      <ConfirmAlert
+        title="Logout"
+        message="Are you sure?"
+        open={openLogout}
+        onClose={() => {
+          setOpenLogout(false);
+        }}
+        onConfirm={handleLogout}
+      />
       <AppBar position="absolute" open={open}>
         <Toolbar sx={{ pr: "24px" }}>
           <IconButton
@@ -89,6 +111,14 @@ const Navbar = () => {
           <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
             Dashboard
           </Typography>
+          <IconButton
+            color="inherit"
+            onClick={() => {
+              setOpenLogout(true);
+            }}
+          >
+            <LogoutIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>

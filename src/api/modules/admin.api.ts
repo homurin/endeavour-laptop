@@ -38,3 +38,29 @@ export const userInfo = async (token: string) => {
     return { message: e.message };
   }
 };
+
+export const updateUserProfile = async (token: string, data: Admin) => {
+  try {
+    const res = await axios.patch(`${url}/update`, data, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const {
+      admin,
+      message,
+      token: newToken,
+    } = res.data as { admin: Admin; token: string; message: string };
+    return {
+      admin,
+      newToken,
+      message,
+    };
+  } catch (err) {
+    const e = err as Error;
+    if (e instanceof AxiosError) {
+      return {
+        message: e.response?.data.message,
+      };
+    }
+    return { message: e.message };
+  }
+};

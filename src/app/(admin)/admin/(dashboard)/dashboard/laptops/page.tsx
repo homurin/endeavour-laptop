@@ -19,7 +19,7 @@ import { getManyLaptop, removeOneLaptop } from "@/api/modules/laptop.api";
 import { Laptop } from "@/types/laptop";
 import { toast } from "react-toastify";
 import Title from "@/components/dashboard/Title";
-import DeleteAlert from "@/components/dashboard/DeleteAlert";
+import ConfirmAlert from "@/components/dashboard/ConfirmAlert";
 
 const page = () => {
   const [laptops, setLaptops] = useState<Array<Laptop>>([]);
@@ -68,7 +68,7 @@ const page = () => {
 
   return (
     <div className="mt-5 p-5">
-      <DeleteAlert
+      <ConfirmAlert
         title={`Remove Laptop ${selectedLaptop?.name}`}
         message={`Are you sure to remove this Laptop?`}
         open={open}
@@ -113,7 +113,7 @@ const page = () => {
                             sx={{ marginX: 1 }}
                             size="small"
                             variant="outlined"
-                            href={`/admin/dashboard/Laptops/${laptop.id}`}
+                            href={`/admin/dashboard/laptops/${laptop.id}`}
                             LinkComponent={Link}
                           >
                             Edit

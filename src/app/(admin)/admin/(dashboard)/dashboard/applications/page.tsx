@@ -19,8 +19,7 @@ import { getManyApp, removeOneApp } from "@/api/modules/app.api";
 import { Apps } from "@/types/application";
 import { toast } from "react-toastify";
 import Title from "@/components/dashboard/Title";
-import DeleteAlert from "@/components/dashboard/DeleteAlert";
-import { orderBy } from "lodash";
+import ConfirmAlert from "@/components/dashboard/ConfirmAlert";
 
 const page = () => {
   const [apps, setApps] = useState<Array<Apps>>([]);
@@ -69,7 +68,7 @@ const page = () => {
 
   return (
     <div className="mt-5 p-5">
-      <DeleteAlert
+      <ConfirmAlert
         title={`Remove Application ${selectedApp?.name}`}
         message={`Are you sure to remove this applications?`}
         open={open}

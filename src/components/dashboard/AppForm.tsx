@@ -22,79 +22,11 @@ import { toast } from "react-toastify";
 import { createOneApp, updateOneApp } from "@/api/modules/app.api";
 import { ApplicationForm, Apps } from "@/types/application";
 import { LoadingButton } from "@mui/lab";
+import { getNumberValue } from "@/utils/textFieldValidation";
 import { dateFormatFromIsoString } from "@/utils/parseDate";
+import { ImageInput, VideosInput } from "./FileUpload";
 
 const FormGrid = styled(Grid)(() => ({ display: "flex", flexDirection: "column" }));
-
-const ImageInput = ({
-  name,
-  src,
-  label,
-  id,
-}: {
-  name: string;
-  src?: string;
-  label?: string;
-  id?: string;
-}) => {
-  const [fileUrl, setFileUrl] = useState<string>(src || "");
-
-  return (
-    <>
-      <FormLabel htmlFor={id}>{label}</FormLabel>
-      <input
-        id={id}
-        type="file"
-        accept="image/*"
-        name={name}
-        multiple={false}
-        onChange={(e) => {
-          if (e.target.files) {
-            const file = e.target.files[0];
-            setFileUrl(URL.createObjectURL(file));
-          }
-        }}
-        required
-      />
-      {fileUrl && <img className="w-1/2" src={fileUrl} />}
-    </>
-  );
-};
-
-const VideosInput = ({
-  name,
-  src,
-  label,
-  id,
-}: {
-  name: string;
-  src?: string;
-  label?: string;
-  id?: string;
-}) => {
-  const [fileUrl, setFileUrl] = useState<string>(src || "");
-
-  return (
-    <>
-      <FormLabel htmlFor={id}>{label}</FormLabel>
-      <input
-        id={id}
-        type="file"
-        accept="video/*"
-        name={name}
-        multiple={false}
-        onChange={(e) => {
-          if (e.target.files) {
-            const file = e.target.files[0];
-            setFileUrl(URL.createObjectURL(file));
-          }
-        }}
-        required
-      />
-      {fileUrl && <iframe src={fileUrl} className="h-96"></iframe>}
-    </>
-  );
-};
 
 const AppForm = ({ data }: { data?: Apps }) => {
   const [windowsList, setWindowsList] = useState<Windows[]>([]);
@@ -123,7 +55,9 @@ const AppForm = ({ data }: { data?: Apps }) => {
   const [headerImage, setHeaderImage] = useState<string>(data?.headerImage || "");
   const [screenshots, setScreenshots] = useState<string>(data?.screenshots || "");
   const [movies, setMovies] = useState<string>(data?.movies || "");
-  const [bitOs, setBitOs] = useState<number>(data?.bitOs || 64);
+  const [removeHeaderImageId, setRemoveHeaderImageIdId] = useState<string>("");
+  const [removeScreenshotsId, setRemoveScreenshotsIdId] = useState<string>("");
+  const [removeMoviesId, setRemoveMoviesIdId] = useState<string>("");
 
   const router = useRouter();
 
@@ -147,14 +81,24 @@ const AppForm = ({ data }: { data?: Apps }) => {
 
     const token = localStorage.getItem("authtoken");
     const appData = formData as ApplicationForm;
-    appData?.append("releaseDate", isoDate.toISOString());
+    appData.append("releaseDate", isoDate.toISOString());
+
+    if (removeHeaderImageId) {
+      appData.append("removeHeaderImageId", removeHeaderImageId);
+    }
+    if (removeScreenshotsId) {
+      appData.append("removeScreenshotsId", removeScreenshotsId);
+    }
+    if (removeMoviesId) {
+      appData.append("removeMoviesId", removeMoviesId);
+    }
 
     if (token) {
       if (data?.id) {
         const { message, app } = await updateOneApp(data.id, appData, token);
         if (app) {
-          toast.success(message);
-          return router.push("/admin/dashboard/applications");
+          setOnRequest(false);
+          return toast.success(message);
         }
         toast.error(message);
       } else {
@@ -200,11 +144,11 @@ const AppForm = ({ data }: { data?: Apps }) => {
           <FormLabel htmlFor="price">Price</FormLabel>
           <TextField
             name="price"
-            type="number"
+            type="text"
             required
             value={price}
             onChange={(e) => {
-              setPrice(Number(e.target.value));
+              getNumberValue(e.target.value, setPrice);
             }}
           />
         </FormGrid>
@@ -233,14 +177,14 @@ const AppForm = ({ data }: { data?: Apps }) => {
           />
         </FormGrid>
         <FormGrid item xs={6} md={3}>
-          <FormLabel htmlFor="min-cpu-speed">Min CPU Speed</FormLabel>
+          <FormLabel htmlFor="min-cpu-speed">Min CPU Speed (GHz)</FormLabel>
           <TextField
             name="minCpuSpeed"
-            type="number"
+            type="text"
             required
             value={minCpuSpeed}
             onChange={(e) => {
-              setMinCpuSpeed(Number(e.target.value));
+              getNumberValue(e.target.value, setMinCpuSpeed);
             }}
           />
         </FormGrid>
@@ -248,35 +192,35 @@ const AppForm = ({ data }: { data?: Apps }) => {
           <FormLabel htmlFor="min-cpu-cores">Min CPU Cores</FormLabel>
           <TextField
             name="minCores"
-            type="number"
+            type="text"
             required
             value={minCpuCores}
             onChange={(e) => {
-              setMinCpuCores(Number(e.target.value));
+              getNumberValue(e.target.value, setMinCpuCores);
             }}
           />
         </FormGrid>
         <FormGrid item xs={6} md={3}>
-          <FormLabel htmlFor="min-gpu-boost-clock">Min GPU Boost Clock</FormLabel>
+          <FormLabel htmlFor="min-gpu-boost-clock">Min GPU Boost Clock (MHz)</FormLabel>
           <TextField
             name="minGpuBoostClock"
-            type="number"
+            type="text"
             required
             value={minGpuBoostClock}
             onChange={(e) => {
-              setMinGpuBoostClock(Number(e.target.value));
+              getNumberValue(e.target.value, setMinGpuBoostClock);
             }}
           />
         </FormGrid>
         <FormGrid item xs={6} md={3}>
-          <FormLabel htmlFor="min-gpu-memory">Min GPU Memory / VRAM</FormLabel>
+          <FormLabel htmlFor="min-gpu-memory">Min GPU Memory / VRAM (GB)</FormLabel>
           <TextField
             name="minGpuMemory"
-            type="number"
+            type="text"
             required
             value={minGpuMemory}
             onChange={(e) => {
-              setMinGpuMemory(Number(e.target.value));
+              getNumberValue(e.target.value, setMinGpuMemory);
             }}
           />
         </FormGrid>
@@ -284,11 +228,11 @@ const AppForm = ({ data }: { data?: Apps }) => {
           <FormLabel htmlFor="min-direct-x-version">Min Direct X Version</FormLabel>
           <TextField
             name="minDirectX"
-            type="number"
+            type="text"
             required
             value={minDirectX}
             onChange={(e) => {
-              setMinDirectX(Number(e.target.value));
+              getNumberValue(e.target.value, setMinDirectX);
             }}
           />
         </FormGrid>
@@ -296,35 +240,35 @@ const AppForm = ({ data }: { data?: Apps }) => {
           <FormLabel htmlFor="min-open-gl-version">Min OpenGL Version</FormLabel>
           <TextField
             name="minOpenGl"
-            type="number"
+            type="text"
             required
             value={minOpenGl}
             onChange={(e) => {
-              setMinOpenGl(Number(e.target.value));
+              getNumberValue(e.target.value, setMinOpenGl);
             }}
           />
         </FormGrid>
         <FormGrid item xs={6} md={3}>
-          <FormLabel htmlFor="min-ram">Min RAM</FormLabel>
+          <FormLabel htmlFor="min-ram">Min RAM (GB)</FormLabel>
           <TextField
             name="minRam"
-            type="number"
+            type="text"
             required
             value={minRam}
             onChange={(e) => {
-              setMinRam(Number(e.target.value));
+              getNumberValue(e.target.value, setMinRam);
             }}
           />
         </FormGrid>
         <FormGrid item xs={6} md={3}>
-          <FormLabel htmlFor="min-storage">Min Storage</FormLabel>
+          <FormLabel htmlFor="min-storage">Min Storage (GB)</FormLabel>
           <TextField
             name="minStorage"
-            type="number"
+            type="text"
             required
             value={minStorage}
             onChange={(e) => {
-              setMinStorage(Number(e.target.value));
+              getNumberValue(e.target.value, setMinStorage);
             }}
           />
         </FormGrid>
@@ -406,36 +350,45 @@ const AppForm = ({ data }: { data?: Apps }) => {
             </Select>
           </FormControl>
         </FormGrid>
-        <FormGrid item xs={3}>
-          <FormControl fullWidth sx={{ minWidth: 50 }}>
-            <InputLabel id="bitOs">OS Bit</InputLabel>
-            <Select
-              id="bitOs"
-              name="bitOs"
-              value={bitOs}
-              label="Bit OS"
-              labelId="bit-os-label"
-              onChange={(e) => {
-                setBitOs(Number(e.target.value));
-              }}
-            >
-              <MenuItem selected={bitOs == 32} value={32}>
-                32
-              </MenuItem>
-              <MenuItem selected={bitOs == 64} value={64}>
-                64
-              </MenuItem>
-            </Select>
-          </FormControl>
+
+        <FormGrid item xs={12}>
+          <ImageInput
+            name="headerImage"
+            label="Header Image"
+            id="header-image"
+            src={headerImage}
+            onRemove={() => {
+              if (headerImage) {
+                setRemoveHeaderImageIdId(data?.headerImageId || "1");
+              }
+            }}
+          />
         </FormGrid>
         <FormGrid item xs={12}>
-          <ImageInput name="headerImage" label="Header Image" id="header-image" src={headerImage} />
+          <ImageInput
+            name="screenshots"
+            label="Screenshots"
+            id="screenshots"
+            src={screenshots}
+            onRemove={() => {
+              if (screenshots) {
+                setRemoveScreenshotsIdId(data?.screenshotsId || "1");
+              }
+            }}
+          />
         </FormGrid>
         <FormGrid item xs={12}>
-          <ImageInput name="screenshots" label="Screenshots" id="screenshots" src={screenshots} />
-        </FormGrid>
-        <FormGrid item xs={12}>
-          <VideosInput name="movies" label="Movies" id="movies" src={movies} />
+          <VideosInput
+            name="movies"
+            label="Movies"
+            id="movies"
+            src={movies}
+            onRemove={() => {
+              if (movies) {
+                setRemoveMoviesIdId(data?.moviesId || "1");
+              }
+            }}
+          />
         </FormGrid>
 
         <FormGrid item xs={12} md={6}>

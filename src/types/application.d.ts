@@ -32,7 +32,6 @@ export interface Apps {
   minGpuBoostClock: number;
   minRam: number;
   minStorage: number;
-  bitOs: number;
   createdAt: Date;
   updatedAt: Date;
 }
