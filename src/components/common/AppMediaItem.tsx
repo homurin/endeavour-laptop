@@ -20,10 +20,14 @@ const AppMediaItem = ({ media }: { media: Apps }) => {
   useEffect(() => {
     const getData = async () => {
       const isSelectedAppExists = await selectedApps.isExists(media.id);
-      if (isSelectedAppExists) setIsSelectedApp(true);
+      if (isSelectedAppExists) {
+        setIsSelectedApp(true);
+      } else {
+        setIsSelectedApp(false);
+      }
     };
     getData();
-  }, [media]);
+  }, [media, isSelectedApp]);
 
   const onAddClick = async () => {
     try {
