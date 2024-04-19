@@ -86,9 +86,9 @@ export default function Page({ params }: { params: { slug: string } }) {
       await selectedApps.add(payload);
       setIsSelectedApp(true);
       setOnRequest(false);
-      toast.success("add selected application success");
+      toast.success("Berhasil menambahkan aplikasi ke multi rekomendasi");
     } catch (err) {
-      toast.error("add selected application failed");
+      toast.error("Gagal menambahkan aplikasi ke multi rekomendasi");
     }
   };
 
@@ -99,9 +99,9 @@ export default function Page({ params }: { params: { slug: string } }) {
       await selectedApps.remove(params.slug);
       setOnRequest(false);
       setIsSelectedApp(false);
-      toast.success("remove selected application success");
+      toast.success("Berhasil menghapus aplikasi dari multi rekomendasi");
     } catch (err) {
-      toast.error("remove selected application failed");
+      toast.error("Gagal menghapus aplikasi dari multi rekomendasi");
     }
   };
 
@@ -155,26 +155,26 @@ export default function Page({ params }: { params: { slug: string } }) {
                       <span>{isSelectedApp ? "Added" : "Add To List"}</span>
                     </LoadingButton>
                   </Stack>
-                  <Container header="Basic Information">
+                  <Container header="Informasi Dasar">
                     <Typography variant="body1" sx={{ ...uiConfigs.style.typoLines(20) }}>
                       <strong>Price : </strong>
                       {app.price && app?.price <= 0
-                        ? "Free To Play"
+                        ? "Gratis"
                         : new Intl.NumberFormat("id-ID", {
                             style: "currency",
                             currency: "IDR",
                           }).format(app.price || 0)}
                       <br />
-                      <strong>Release Date : </strong>
+                      <strong>Tanggal Rilis : </strong>
                       {dateFormatFromIsoString(app.releaseDate)}
                       <br />
-                      <strong>Developer : </strong>
+                      <strong>Pengembang : </strong>
                       {app.developers}
                       <br />
-                      <strong>Publisher : </strong>
+                      <strong>Penerbit : </strong>
                       {app.publishers}
                       <br />
-                      <strong>Supported Operating System :</strong>
+                      <strong>Sistem Operasi Yang Didukung :</strong>
                       <br />
                       {app.windows && <FaWindows size={30} style={{ display: "inline" }} />}
                       {app.mac && <FaApple size={30} style={{ display: "inline" }} />}
@@ -185,7 +185,7 @@ export default function Page({ params }: { params: { slug: string } }) {
               </Box>
             </Box>
             {app.movies && (
-              <Container header="videos">
+              <Container header="Trailer Aplikasi">
                 <Box
                   sx={{
                     display: "flex",
@@ -203,10 +203,10 @@ export default function Page({ params }: { params: { slug: string } }) {
                 </Box>
               </Container>
             )}
-            <Container header="About This Application">
+            <Container header="Tentang Aplikasi">
               <p style={{ textAlign: "justify", textIndent: "2rem" }}>{app.description}</p>
             </Container>
-            <Container header="backdrops">
+            <Container header="galeri aplikasi">
               <img
                 style={{
                   width: "100%",
@@ -217,35 +217,35 @@ export default function Page({ params }: { params: { slug: string } }) {
                 alt={`${app.name}-screenshots`}
               />
             </Container>
-            <Container header="Minimum System Requirements">
+            <Container header="Kebutuhan Sistem Minimum ">
               <Typography variant="body1" sx={{ ...uiConfigs.style.typoLines(10) }}>
-                <strong>Processor : </strong>
-                {app.minCpuSpeed.toFixed(2)} GHz Speed ({app.minCores} Core)
+                <strong>Prosesor : </strong>
+                Kecepatan {app.minCpuSpeed.toFixed(2)} GHz ({app.minCores} Core)
                 <br />
                 <strong>Memory : </strong>
                 {app.minRam} GB RAM
                 <br />
-                <strong>Graphics : </strong>
-                {app.minGpuBoostClock.toFixed(2)} MHz Speed ({app.minGpuMemory} GB)
+                <strong>Kartu Grafis : </strong>
+                Kecepatan {app.minGpuBoostClock.toFixed(2)} MHz ({app.minGpuMemory} GB)
                 <br />
                 <strong>DirectX : </strong>
-                Version {app.minDirectX}
+                Versi {app.minDirectX}
                 <br />
                 <strong>OpenGL : </strong>
-                Version {app.minOpenGl}
+                Versi {app.minOpenGl}
                 <br />
-                <strong>Storage : </strong>
+                <strong>Penyimpanan Tersedia: </strong>
                 {app.minStorage} GB
                 <br />
-                <strong>OS : </strong>
-                Version {app.minOs.name}
+                <strong>Versi Windows : </strong>
+                {app.minOs.name}
                 <br />
               </Typography>
             </Container>
-            <Container header="laptops recommendation">
+            <Container header="rekomendasi laptop">
               <LaptopMediaSlide data={laptops} />
             </Container>
-            <Container header="get more applications">
+            <Container header="lebih banyak aplikasi">
               <AppMediaSlide data={randomApps} />
             </Container>
           </Box>

@@ -159,7 +159,7 @@ const LaptopHeroSlide = () => {
                       href={`/laptops/${laptop.id}`}
                       sx={{ width: "max-content" }}
                     >
-                      More Info
+                      Lebih Lanjut
                     </Button>
                   </Stack>
                 </Box>

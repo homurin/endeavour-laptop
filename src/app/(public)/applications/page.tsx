@@ -54,7 +54,7 @@ export default function Page() {
     <>
       <AppHeroSlide />
       <Toolbar />
-      <Container header="Find apps you need">
+      <Container header="cari aplikasi sesuai kebutuhanmu">
         <Box sx={{ ...uiConfigs.style.mainContent }}>
           <Stack spacing={2}>
             <TextField

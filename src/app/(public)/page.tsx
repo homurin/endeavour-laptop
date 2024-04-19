@@ -50,19 +50,19 @@ export default function Page() {
       {isEven && <AppHeroSlide />}
       {!isEven && <LaptopHeroSlide />}
       <Box marginTop="-4rem" sx={{ ...uiConfigs.style.mainContent }}>
-        <Container header="newest laptops">
+        <Container header="laptop rilis terbaru">
           <LaptopMediaSlide data={newestLaptops} />
         </Container>
 
-        <Container header="highest laptops price">
+        <Container header="laptop dengan harga tertinggi">
           <LaptopMediaSlide data={mostExpensiveLaptops} />
         </Container>
 
-        <Container header="newest release applications">
+        <Container header="aplikasi rilis terbaru">
           <AppMediaSlide data={newestApps} />
         </Container>
 
-        <Container header="most expensive applications">
+        <Container header="aplikasi dengan harga tertinggi">
           <AppMediaSlide data={mostExpensiveApps} />
         </Container>
       </Box>

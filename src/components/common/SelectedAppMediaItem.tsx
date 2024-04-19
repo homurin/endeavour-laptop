@@ -28,12 +28,12 @@ const LaptopMediaItem = ({
         await remove(media.id);
         await onRemoved(media.id);
         setOnRequest(false);
-        toast.success("remove selected application success");
+        toast.success("berhasil menghapus aplikasi terpilih");
         return;
       }
       toast.error("invalid id");
     } catch (err) {
-      toast.error("remove selected application failed");
+      toast.error("gagal menghapus aplikasi terpilih");
     }
   };
 
@@ -69,7 +69,7 @@ const LaptopMediaItem = ({
           loading={onRequest}
           onClick={onRemoveSelectedApps}
         >
-          <span>Remove</span>
+          <span>Hapus</span>
         </LoadingButton>
       </CardActions>
     </Card>

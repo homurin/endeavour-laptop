@@ -54,7 +54,7 @@ export default function Page() {
     <>
       <LaptopHeroSlide />
       <Toolbar />
-      <Container header="Find your suitable laptop">
+      <Container header="Cari laptop sesuai kebutuhanmu">
         <Box sx={{ ...uiConfigs.style.mainContent }}>
           <Stack spacing={2}>
             <TextField

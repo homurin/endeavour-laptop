@@ -47,9 +47,9 @@ const AppMediaItem = ({ media }: { media: Apps }) => {
       await selectedApps.add(payload);
       setIsSelectedApp(true);
       setOnRequest(false);
-      toast.success("add selected application success");
+      toast.success("berhasil menambahkan aplikasi ke multi rekomendasi");
     } catch (err) {
-      toast.error("add selected application failed");
+      toast.error("gagal menambahkan aplikasi ke multi rekomendasi");
     }
   };
 
@@ -60,9 +60,9 @@ const AppMediaItem = ({ media }: { media: Apps }) => {
       await selectedApps.remove(media.id);
       setOnRequest(false);
       setIsSelectedApp(false);
-      toast.success("remove selected application success");
+      toast.success("berhasil menghapus aplikasi dari multi rekomendasi");
     } catch (err) {
-      toast.error("remove selected application failed");
+      toast.error("gagal menghapus aplikasi dari multi rekomendasi");
     }
   };
 
@@ -102,7 +102,7 @@ const AppMediaItem = ({ media }: { media: Apps }) => {
           loading={onRequest}
           sx={{ width: "max-content" }}
         >
-          <span>{isSelectedApp ? "Added" : "Add to List"}</span>
+          <span>{isSelectedApp ? "Ditambahkan" : "Multi Rekomendasi"}</span>
         </LoadingButton>
       </CardActions>
     </Card>

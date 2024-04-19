@@ -135,7 +135,7 @@ const AppHeroSlide = () => {
                       href={`/applications/${app.id}`}
                       sx={{ width: "max-content" }}
                     >
-                      Get Laptop
+                      Dapatkan Laptop
                     </Button>
                   </Stack>
                 </Box>

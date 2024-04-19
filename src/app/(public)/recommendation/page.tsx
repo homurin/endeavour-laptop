@@ -132,7 +132,7 @@ export default function Page() {
               </Grid>
             ) : (
               <Typography variant="body1" textAlign="center">
-                Applications not found
+                Aplikasi tidak ditemukan
               </Typography>
             )}
           </Stack>
@@ -161,7 +161,7 @@ export default function Page() {
             Version {specReq?.openGl}
           </Typography>
           <Typography variant="body1" component="div">
-            <strong>Storage : </strong>
+            <strong>Penyimpanan : </strong>
             {Math.floor(specReq?.totalStorage || 0)} GB
           </Typography>
           <Typography variant="body1" component="div">
@@ -170,26 +170,29 @@ export default function Page() {
           </Typography>
         </Box>
       </Container>
-      <Container header="laptop recommendation">
+      <Container header="rekomendasi laptop">
         {laptops && <LaptopMediaSlide data={laptops} />}
       </Container>
     </Box>
   ) : (
-    <Container header="selected applications is empty">
+    <Container header="aplikasi terpilih kosong">
       <Box sx={{ ...uiConfigs.style.mainContent }}>
-        <Typography variant="h5" sx={{ fontWeight: 700, ...uiConfigs.style.typoLines(1, "left") }}>
-          How to get laptop recommendation?
+        <Typography
+          variant="h5"
+          sx={{ fontWeight: 700, ...uiConfigs.style.typoLines(1, "left"), mb: 1 }}
+        >
+          Bagaimana cara mendapatkan rekomendasi laptop dengan banyak aplikasi?
         </Typography>
         <Typography>
-          1. Go to{"  "}
+          1. Pergi ke halaman{"  "}
           <Button size="small" variant="contained" LinkComponent={Link} href="/applications">
-            Applications
+            Aplikasi
           </Button>
         </Typography>
         <Typography>
-          2. Add Application To List <MdLibraryAdd style={{ display: "inline" }} />{" "}
+          2. Tambahkan aplikasi ke multi rekomendasi <MdLibraryAdd style={{ display: "inline" }} />{" "}
         </Typography>
-        <Typography>3. Go Back Here</Typography>
+        <Typography>3. Kembali ke halaman ini</Typography>
       </Box>
     </Container>
   );

@@ -1,7 +1,6 @@
 "use client";
 
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import LaptopOutlinedIcon from "@mui/icons-material/LaptopOutlined";
 import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
 import PageviewOutlinedIcon from "@mui/icons-material/PageviewOutlined";
@@ -13,31 +12,22 @@ const main = [
     icon: <HomeOutlinedIcon />,
   },
   {
-    display: "get recommendations",
+    display: "multi rekomendasi",
     path: "/recommendation",
     icon: <PageviewOutlinedIcon />,
   },
   {
-    display: "laptops",
+    display: "laptop",
     path: "/laptops",
     icon: <LaptopOutlinedIcon />,
   },
   {
-    display: "applications",
+    display: "aplikasi",
     path: "/applications",
     icon: <SportsEsportsOutlinedIcon />,
   },
 ];
 
-const user = [
-  {
-    display: "required apps",
-    path: "required-apps",
-    icon: <FavoriteBorderOutlinedIcon />,
-    state: "required.apps",
-  },
-];
-
-const menuConfigs = { main, user };
+const menuConfigs = { main };
 
 export default menuConfigs;

@@ -3,7 +3,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 import { notFound } from "next/navigation";
 import { SwiperSlide } from "swiper/react";
 import Container from "@/components/common/Container";
@@ -79,7 +78,7 @@ export default function Page({ params }: { params: { slug: string } }) {
                 >
                   {laptop.name}
                 </Typography>
-                <Container header="overview">
+                <Container header="spesifikasi ringkas">
                   <Typography variant="body1" sx={{ ...uiConfigs.style.typoLines(20) }}>
                     <strong>CPU : </strong>
                     {laptop.cpu?.name}@{laptop.cpu?.baseSpeed.toFixed(2)}~
@@ -89,22 +88,22 @@ export default function Page({ params }: { params: { slug: string } }) {
                     {laptop.gpu?.name} (
                     {laptop.gpu?.memory > 0 ? `${laptop.gpu?.memory} GB` : "Shared Memory"} )
                     <br />
-                    <strong>RAM : </strong>
+                    <strong>Kapasitas RAM : </strong>
                     {laptop.ram} GB
                     <br />
-                    <strong>SSD Storage : </strong>
+                    <strong>Kapasitas SSD : </strong>
                     {laptop.ssdStorage} GB
                     <br />
-                    <strong>HDD Storage : </strong>
+                    <strong>Kapasitas HDD : </strong>
                     {laptop.hddStorage} GB
                     <br />
                     <strong>OS Version : </strong>
                     {`${laptop.windowsVersion?.name} ${laptop.osEdition}`}
                     <br />
-                    <strong>Brand Name : </strong>
+                    <strong>Nama Brand : </strong>
                     {laptop.brand?.name}
                     <br />
-                    <strong>Post Date : </strong>
+                    <strong>Tanggal Diunggah : </strong>
                     {dateFormatFromIsoString(laptop.createdAt)}
                     <br />
                   </Typography>
@@ -112,72 +111,72 @@ export default function Page({ params }: { params: { slug: string } }) {
               </Stack>
             </Box>
           </Box>
-          <Container header="specification detail">
+          <Container header="detail spesifikasi">
             <Typography variant="body1" sx={{ ...uiConfigs.style.typoLines(20) }}>
-              <strong>CPU Name : </strong>
+              <strong>Nama CPU: </strong>
               {laptop.cpu?.name}
               <br />
-              <strong>CPU Speed: </strong>
-              {laptop.cpu?.baseSpeed.toFixed(2)}~{laptop.cpu?.maxSpeed.toFixed(2)} GHz
+              <strong>Kecepatan CPU : </strong>
+              {laptop.cpu?.baseSpeed.toFixed(2)} Ghz hingga {laptop.cpu?.maxSpeed.toFixed(2)} GHz
               <br />
-              <strong>CPU Cores: </strong>
+              <strong>Jumlah Core CPU: </strong>
               {laptop.cpu?.cores} Core
               <br />
-              <strong>GPU Name : </strong>
+              <strong>Nama GPU : </strong>
               {laptop.gpu?.name}
               <br />
-              <strong>GPU Speed: </strong>
-              {laptop.gpu?.baseSpeed} - {laptop.gpu?.maxSpeed} MHz
+              <strong>Kecepatan GPU: </strong>
+              {laptop.gpu?.baseSpeed} Mhz hingga {laptop.gpu?.maxSpeed} MHz
               <br />
-              <strong>GPU Memory: </strong>
+              <strong>Kapasitas Memory GPU: </strong>
               {laptop.gpu?.memory > 0 ? `${laptop.gpu?.memory} GB` : "Shared Memory"}
               <br />
-              <strong>DirectX Version : </strong>
+              <strong>Versi DirectX : </strong>
               {laptop.gpu?.directX}
               <br />
-              <strong>OpenGL Version : </strong>
+              <strong>Versi OpenGL : </strong>
               {laptop.gpu?.openGl}
               <br />
-              <strong>RAM : </strong>
+              <strong>Kapasitas RAM : </strong>
               {laptop.ram} GB
               <br />
-              <strong>SSD Storage : </strong>
+              <strong>Kapasitas SSD : </strong>
               {laptop.ssdStorage} GB
               <br />
-              <strong>HDD Storage : </strong>
+              <strong>Kapasitas HDD : </strong>
               {laptop.hddStorage} GB
               <br />
-              <strong>OS Version : </strong>
+              <strong>Versi Windows : </strong>
               {laptop.windowsVersion?.name}
               <br />
-              <strong>OS Edition : </strong>
+              <strong>Edisi Windows : </strong>
               {laptop.osEdition}
               <br />
-              <strong>Brand Name : </strong>
+              <strong>Nama Brand : </strong>
               {laptop.brand?.name}
               <br />
-              <strong>Display Name : </strong>
+              <strong>Nama Tampilan Display : </strong>
               {laptop.displayName}
               <br />
-              <strong>Display Size : </strong>
-              {laptop.displaySize} Inch
+              <strong>Ukuran Tampilan Display : </strong>
+              {laptop.displaySize} Inchi
               <br />
-              <strong>Panel Code : </strong>
+              <strong>Kode Panel : </strong>
               {laptop.panelCode}
               <br />
-              <strong>Panel Type : </strong>
+              <strong>Tipe Panel : </strong>
               {laptop.panelType}
               <br />
-              <strong>Weight : </strong>
+              <strong>Berat : </strong>
               {laptop.weight} Kg
               <br />
-              <strong>Post Date : </strong>
+              <strong>Tanggal Diunggah : </strong>
               {dateFormatFromIsoString(laptop.createdAt)}
               <br />
             </Typography>
           </Container>
           {laptop.videos && (
-            <Container header="videos">
+            <Container header="video">
               <Box
                 sx={{
                   display: "flex",
@@ -196,7 +195,7 @@ export default function Page({ params }: { params: { slug: string } }) {
             </Container>
           )}
           {laptop.galleries?.length > 0 && (
-            <Container header="backdrops">
+            <Container header="galeri foto">
               <NavigationSwiper>
                 {laptop.galleries.map((gallery, index) => {
                   return (
@@ -216,7 +215,7 @@ export default function Page({ params }: { params: { slug: string } }) {
               </NavigationSwiper>
             </Container>
           )}
-          <Container header="similar laptop">
+          <Container header="laptop serupa">
             <LaptopMediaSlide data={similarLaptops} />
           </Container>
         </Box>
