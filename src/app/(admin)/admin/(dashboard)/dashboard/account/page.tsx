@@ -99,7 +99,7 @@ const AppForm = ({ params }: { params: { id: string } }) => {
           />
         </FormGrid>
         <FormGrid item xs={12} md={6}>
-          <FormLabel htmlFor="full-name">Full Name</FormLabel>
+          <FormLabel htmlFor="full-name">Nama Lengkap </FormLabel>
           <TextField
             id="full-name"
             name="fullName"
@@ -114,7 +114,7 @@ const AppForm = ({ params }: { params: { id: string } }) => {
         {onUpdatePassword && onEdit && (
           <>
             <FormGrid item xs={12} md={6}>
-              <FormLabel htmlFor="old-password">Old Password</FormLabel>
+              <FormLabel htmlFor="old-password">Password Lama</FormLabel>
               <TextField
                 id="old-password"
                 name="oldPassword"
@@ -128,7 +128,7 @@ const AppForm = ({ params }: { params: { id: string } }) => {
               />
             </FormGrid>
             <FormGrid item xs={12} md={6}>
-              <FormLabel htmlFor="new-password">New Password</FormLabel>
+              <FormLabel htmlFor="new-password">Password Baru</FormLabel>
               <TextField
                 id="new-password"
                 name="newPassword"
@@ -142,7 +142,7 @@ const AppForm = ({ params }: { params: { id: string } }) => {
               />
             </FormGrid>
             <FormGrid item xs={12} md={6}>
-              <FormLabel htmlFor="confirm-new-password">Confirm New Password</FormLabel>
+              <FormLabel htmlFor="confirm-new-password">Konfirmasi Password Baru</FormLabel>
               <TextField
                 id="confirm-new-password"
                 name="confirmNewPassword"
@@ -170,7 +170,7 @@ const AppForm = ({ params }: { params: { id: string } }) => {
                 setOnUpdatePassword(!onUpdatePassword);
               }}
             >
-              {onUpdatePassword ? "Discard Change" : "Update Password"}
+              {onUpdatePassword ? "Batalkan Perubahan" : "Perbarui Password"}
             </Button>
           </FormGrid>
         )}
@@ -183,7 +183,7 @@ const AppForm = ({ params }: { params: { id: string } }) => {
               type={onEdit ? "submit" : "button"}
               variant="outlined"
             >
-              Save Changes
+              Simpan Perubahan
             </LoadingButton>
           ) : (
             <Button
@@ -193,7 +193,7 @@ const AppForm = ({ params }: { params: { id: string } }) => {
                 setOnEdit(true);
               }}
             >
-              Update Profile
+              Perbarui Profil
             </Button>
           )}
         </FormGrid>

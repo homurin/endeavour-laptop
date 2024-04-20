@@ -24,7 +24,7 @@ const ItemOverviewBox = ({
         </Typography>
         <div>
           <Link color="primary" component={NextLink} href={href}>
-            View More
+            Lebih Lanjut
           </Link>
         </div>
       </Paper>

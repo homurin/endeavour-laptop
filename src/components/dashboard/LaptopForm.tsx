@@ -157,7 +157,7 @@ const LaptopForm = ({ data }: { data?: Laptop }) => {
     >
       <Grid container spacing={3}>
         <FormGrid item xs={12}>
-          <FormLabel htmlFor="name">Name</FormLabel>
+          <FormLabel htmlFor="name">Nama</FormLabel>
           <TextField
             id="name"
             name="name"
@@ -242,13 +242,13 @@ const LaptopForm = ({ data }: { data?: Laptop }) => {
 
         <FormGrid item xs={6} md={3}>
           <FormControl fullWidth sx={{ minWidth: 50 }}>
-            <InputLabel id="windowsEdition">Windows Edition</InputLabel>
+            <InputLabel id="windowsEdition">Edisi Windows</InputLabel>
             <Select
               id="windows-edition"
               name="osEdition"
               value={osEdition}
               labelId="windows-edition"
-              label="Windows Edition"
+              label="Edisi Windows"
               onChange={(e) => {
                 setOsEdition(e.target.value);
               }}
@@ -289,7 +289,7 @@ const LaptopForm = ({ data }: { data?: Laptop }) => {
         </FormGrid>
 
         <FormGrid item xs={6} md={3}>
-          <FormLabel htmlFor="price">Price (IDR)</FormLabel>
+          <FormLabel htmlFor="price">Harga (IDR)</FormLabel>
           <TextField
             id="price"
             name="price"
@@ -317,7 +317,7 @@ const LaptopForm = ({ data }: { data?: Laptop }) => {
         </FormGrid>
 
         <FormGrid item xs={6} md={3}>
-          <FormLabel htmlFor="ssd-storage">SSD Storage (GB)</FormLabel>
+          <FormLabel htmlFor="ssd-storage">Kapasitas SSD (GB)</FormLabel>
           <TextField
             id="ssd-storage"
             name="ssdStorage"
@@ -331,7 +331,7 @@ const LaptopForm = ({ data }: { data?: Laptop }) => {
         </FormGrid>
 
         <FormGrid item xs={6} md={3}>
-          <FormLabel htmlFor="hdd-storage">HDD Storage (GB)</FormLabel>
+          <FormLabel htmlFor="hdd-storage">Kapasitas HDD (GB)</FormLabel>
           <TextField
             id="hdd-storage"
             name="hddStorage"
@@ -345,7 +345,7 @@ const LaptopForm = ({ data }: { data?: Laptop }) => {
         </FormGrid>
 
         <FormGrid item xs={6} md={3}>
-          <FormLabel htmlFor="display-name">Display Name</FormLabel>
+          <FormLabel htmlFor="display-name">Nama Tampilan Display</FormLabel>
           <TextField
             id="display-name"
             name="displayName"
@@ -359,7 +359,7 @@ const LaptopForm = ({ data }: { data?: Laptop }) => {
         </FormGrid>
 
         <FormGrid item xs={6} md={3}>
-          <FormLabel htmlFor="display-resolution">Display Resolution</FormLabel>
+          <FormLabel htmlFor="display-resolution">Resolusi Tampilan Display</FormLabel>
           <TextField
             id="display-resolution"
             name="displayResolution"
@@ -373,7 +373,7 @@ const LaptopForm = ({ data }: { data?: Laptop }) => {
         </FormGrid>
 
         <FormGrid item xs={6} md={3}>
-          <FormLabel htmlFor="display-size">Display Size (Inch)</FormLabel>
+          <FormLabel htmlFor="display-size">Ukuran Tampilan Display (Inch)</FormLabel>
           <TextField
             id="display-size"
             name="displaySize"
@@ -387,7 +387,7 @@ const LaptopForm = ({ data }: { data?: Laptop }) => {
         </FormGrid>
 
         <FormGrid item xs={6} md={3}>
-          <InputLabel id="brand">Panel Type</InputLabel>
+          <InputLabel id="brand">Tipe Panel</InputLabel>
           <FormControl fullWidth sx={{ minWidth: 50 }}>
             <Select
               id="panel-type"
@@ -411,7 +411,7 @@ const LaptopForm = ({ data }: { data?: Laptop }) => {
         </FormGrid>
 
         <FormGrid item xs={6} md={3}>
-          <FormLabel htmlFor="panel-type">Panel Code</FormLabel>
+          <FormLabel htmlFor="panel-type">Kode Panel</FormLabel>
           <TextField
             id="panel-code"
             name="panelCode"
@@ -439,7 +439,7 @@ const LaptopForm = ({ data }: { data?: Laptop }) => {
         </FormGrid>
 
         <FormGrid item xs={6} md={3}>
-          <FormLabel htmlFor="weight">Weight (Kg)</FormLabel>
+          <FormLabel htmlFor="weight">Berat (Kg)</FormLabel>
           <TextField
             id="weight"
             name="weight"
@@ -480,7 +480,7 @@ const LaptopForm = ({ data }: { data?: Laptop }) => {
 
         <FormGrid item xs={12} md={6}>
           <LoadingButton loading={onRequest} type="submit" variant="contained">
-            {data?.id ? "Update" : "Create"}
+            {data?.id ? "Perbarui" : "Unggah"}
           </LoadingButton>
         </FormGrid>
       </Grid>

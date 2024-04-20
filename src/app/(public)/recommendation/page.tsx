@@ -138,7 +138,7 @@ export default function Page() {
           </Stack>
         </Box>
       </Container>
-      <Container header="minimum laptop requirements to run applications">
+      <Container header="kebutuhan sistem minimum untuk menjalankan aplikasi">
         <Box>
           <Typography variant="body1" component="div">
             <strong>Processor : </strong>
@@ -149,23 +149,23 @@ export default function Page() {
             {Math.floor(specReq?.ram || 0)} GB RAM
           </Typography>
           <Typography variant="body1" component="div">
-            <strong>Graphics : </strong>
+            <strong>Grafis : </strong>
             {specReq?.gpuMaxSpeed.toFixed(2)} MHz Speed ({specReq?.gpuMemory} GB)
           </Typography>
           <Typography variant="body1" component="div">
             <strong>DirectX : </strong>
-            Version {specReq?.directX}
+            Versi {specReq?.directX}
           </Typography>
           <Typography variant="body1" component="div">
             <strong>OpenGL : </strong>
-            Version {specReq?.openGl}
+            Versi {specReq?.openGl}
           </Typography>
           <Typography variant="body1" component="div">
             <strong>Penyimpanan : </strong>
             {Math.floor(specReq?.totalStorage || 0)} GB
           </Typography>
           <Typography variant="body1" component="div">
-            <strong>OS : </strong>
+            <strong>Sistem Operasi : </strong>
             {specReq?.windowsName}
           </Typography>
         </Box>

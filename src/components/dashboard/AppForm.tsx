@@ -129,7 +129,7 @@ const AppForm = ({ data }: { data?: Apps }) => {
     >
       <Grid container spacing={3}>
         <FormGrid item xs={12}>
-          <FormLabel htmlFor="name">Name</FormLabel>
+          <FormLabel htmlFor="name">Nama</FormLabel>
           <TextField
             id="name"
             name="name"
@@ -141,7 +141,7 @@ const AppForm = ({ data }: { data?: Apps }) => {
           />
         </FormGrid>
         <FormGrid item xs={6} md={4}>
-          <FormLabel htmlFor="price">Price</FormLabel>
+          <FormLabel htmlFor="price">Harga</FormLabel>
           <TextField
             name="price"
             type="text"
@@ -153,7 +153,7 @@ const AppForm = ({ data }: { data?: Apps }) => {
           />
         </FormGrid>
         <FormGrid item xs={6} md={4}>
-          <FormLabel htmlFor="releaseDate">Release Date</FormLabel>
+          <FormLabel htmlFor="releaseDate">Tanggal Rilis</FormLabel>
           <TextField
             type="date"
             required
@@ -165,7 +165,7 @@ const AppForm = ({ data }: { data?: Apps }) => {
           />
         </FormGrid>
         <FormGrid item xs={12}>
-          <FormLabel htmlFor="description">Description</FormLabel>
+          <FormLabel htmlFor="description">Deskripsi</FormLabel>
           <TextField
             name="description"
             multiline
@@ -177,7 +177,7 @@ const AppForm = ({ data }: { data?: Apps }) => {
           />
         </FormGrid>
         <FormGrid item xs={6} md={3}>
-          <FormLabel htmlFor="min-cpu-speed">Min CPU Speed (GHz)</FormLabel>
+          <FormLabel htmlFor="min-cpu-speed">Kecepatan Minimum CPU (GHz)</FormLabel>
           <TextField
             name="minCpuSpeed"
             type="text"
@@ -189,7 +189,7 @@ const AppForm = ({ data }: { data?: Apps }) => {
           />
         </FormGrid>
         <FormGrid item xs={6} md={3}>
-          <FormLabel htmlFor="min-cpu-cores">Min CPU Cores</FormLabel>
+          <FormLabel htmlFor="min-cpu-cores">Jumlah Minimum Core</FormLabel>
           <TextField
             name="minCores"
             type="text"
@@ -201,7 +201,7 @@ const AppForm = ({ data }: { data?: Apps }) => {
           />
         </FormGrid>
         <FormGrid item xs={6} md={3}>
-          <FormLabel htmlFor="min-gpu-boost-clock">Min GPU Boost Clock (MHz)</FormLabel>
+          <FormLabel htmlFor="min-gpu-boost-clock">GPU Boost Clock (MHz)</FormLabel>
           <TextField
             name="minGpuBoostClock"
             type="text"
@@ -213,7 +213,7 @@ const AppForm = ({ data }: { data?: Apps }) => {
           />
         </FormGrid>
         <FormGrid item xs={6} md={3}>
-          <FormLabel htmlFor="min-gpu-memory">Min GPU Memory / VRAM (GB)</FormLabel>
+          <FormLabel htmlFor="min-gpu-memory">Minimum VRAM (GB)</FormLabel>
           <TextField
             name="minGpuMemory"
             type="text"
@@ -225,7 +225,7 @@ const AppForm = ({ data }: { data?: Apps }) => {
           />
         </FormGrid>
         <FormGrid item xs={6} md={3}>
-          <FormLabel htmlFor="min-direct-x-version">Min Direct X Version</FormLabel>
+          <FormLabel htmlFor="min-direct-x-version">Versi Minimum DirectX</FormLabel>
           <TextField
             name="minDirectX"
             type="text"
@@ -237,7 +237,7 @@ const AppForm = ({ data }: { data?: Apps }) => {
           />
         </FormGrid>
         <FormGrid item xs={6} md={3}>
-          <FormLabel htmlFor="min-open-gl-version">Min OpenGL Version</FormLabel>
+          <FormLabel htmlFor="min-open-gl-version">Versi Minimum OpenGL</FormLabel>
           <TextField
             name="minOpenGl"
             type="text"
@@ -249,7 +249,7 @@ const AppForm = ({ data }: { data?: Apps }) => {
           />
         </FormGrid>
         <FormGrid item xs={6} md={3}>
-          <FormLabel htmlFor="min-ram">Min RAM (GB)</FormLabel>
+          <FormLabel htmlFor="min-ram">Kapasitas Minimum RAM (GB)</FormLabel>
           <TextField
             name="minRam"
             type="text"
@@ -261,7 +261,7 @@ const AppForm = ({ data }: { data?: Apps }) => {
           />
         </FormGrid>
         <FormGrid item xs={6} md={3}>
-          <FormLabel htmlFor="min-storage">Min Storage (GB)</FormLabel>
+          <FormLabel htmlFor="min-storage">Penyimpanan Minimum (GB)</FormLabel>
           <TextField
             name="minStorage"
             type="text"
@@ -273,7 +273,7 @@ const AppForm = ({ data }: { data?: Apps }) => {
           />
         </FormGrid>
         <FormGrid item xs={12} md={6}>
-          <FormLabel htmlFor="developers">Developers</FormLabel>
+          <FormLabel htmlFor="developers">Pengembang</FormLabel>
           <TextField
             name="developers"
             required
@@ -284,7 +284,7 @@ const AppForm = ({ data }: { data?: Apps }) => {
           />
         </FormGrid>
         <FormGrid item xs={12} md={6}>
-          <FormLabel htmlFor="publishers">Publishers</FormLabel>
+          <FormLabel htmlFor="publishers">Penerbit</FormLabel>
           <TextField
             name="publishers"
             required
@@ -296,7 +296,7 @@ const AppForm = ({ data }: { data?: Apps }) => {
         </FormGrid>
         <FormGrid item xs={12}>
           <FormGroup>
-            <InputLabel>Supported Operating System</InputLabel>
+            <InputLabel>Sistem Operasi Yang Didukung</InputLabel>
             <FormControlLabel
               control={
                 <Checkbox
@@ -328,7 +328,8 @@ const AppForm = ({ data }: { data?: Apps }) => {
           </FormGroup>
         </FormGrid>
         <FormGrid item xs={9}>
-          <FormControl fullWidth sx={{ minWidth: 50 }}>
+          <InputLabel id="windows">Versi Windows</InputLabel>
+          <FormControl fullWidth sx={{ minWidth: 50, mt: 1 }}>
             <InputLabel id="windows">Windows</InputLabel>
             <Select
               id="windows"
@@ -354,7 +355,7 @@ const AppForm = ({ data }: { data?: Apps }) => {
         <FormGrid item xs={12}>
           <ImageInput
             name="headerImage"
-            label="Header Image"
+            label="Thumbnail Aplikasi"
             id="header-image"
             src={headerImage}
             onRemove={() => {
@@ -393,7 +394,7 @@ const AppForm = ({ data }: { data?: Apps }) => {
 
         <FormGrid item xs={12} md={6}>
           <LoadingButton loading={onRequest} type="submit" variant="contained">
-            {data?.id ? "Update" : "Create"}
+            {data?.id ? "Perbarui" : "Unggah"}
           </LoadingButton>
         </FormGrid>
       </Grid>

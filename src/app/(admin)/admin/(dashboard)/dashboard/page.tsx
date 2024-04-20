@@ -11,7 +11,7 @@ const Page = () => {
           <ItemOverviewBox title="Laptop" href="/admin/dashboard/laptops" count={10} />
         </Grid>
         <Grid item xs={12} md={4} lg={3}>
-          <ItemOverviewBox title="Application" href="/admin/dashboard/applications" count={10} />
+          <ItemOverviewBox title="Aplikasi" href="/admin/dashboard/applications" count={10} />
         </Grid>
       </Grid>
     </Container>

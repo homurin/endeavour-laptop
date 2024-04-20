@@ -112,7 +112,7 @@ export default function Page({ params }: { params: { slug: string } }) {
             </Box>
           </Box>
           <Container header="detail spesifikasi">
-            <Typography variant="body1" sx={{ ...uiConfigs.style.typoLines(20) }}>
+            <Typography variant="body1" sx={{ ...uiConfigs.style.typoLines(30) }}>
               <strong>Nama CPU: </strong>
               {laptop.cpu?.name}
               <br />
@@ -158,8 +158,14 @@ export default function Page({ params }: { params: { slug: string } }) {
               <strong>Nama Tampilan Display : </strong>
               {laptop.displayName}
               <br />
+              <strong>Resolusi Tampilan Display : </strong>
+              {laptop.displayResolution}
+              <br />
               <strong>Ukuran Tampilan Display : </strong>
               {laptop.displaySize} Inchi
+              <br />
+              <strong>Refresh Rate : </strong>
+              {laptop.displaySize} Hz
               <br />
               <strong>Kode Panel : </strong>
               {laptop.panelCode}

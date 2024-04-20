@@ -91,14 +91,14 @@ const page = () => {
               LinkComponent={Link}
               sx={{ marginY: 1, width: "max-content" }}
             >
-              Create
+              Buat
             </Button>
             <Table size="small">
               <TableHead>
                 <TableRow>
                   <TableCell>ID</TableCell>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Manage</TableCell>
+                  <TableCell>Nama</TableCell>
+                  <TableCell>Kelolah</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -128,7 +128,7 @@ const page = () => {
                               setOpen(true);
                             }}
                           >
-                            Delete
+                            Hapus
                           </Button>
                         </TableCell>
                       </TableRow>
@@ -148,7 +148,7 @@ const page = () => {
               setPage(page - 1);
             }}
           >
-            Prev
+            Sebelumnya
           </LoadingButton>
         )}
         {laptopsLength >= 40 && (
@@ -158,7 +158,7 @@ const page = () => {
               setPage(page + 1);
             }}
           >
-            Next
+            Selanjutnya
           </LoadingButton>
         )}
       </div>

@@ -69,8 +69,8 @@ const page = () => {
   return (
     <div className="mt-5 p-5">
       <ConfirmAlert
-        title={`Remove Application ${selectedApp?.name}`}
-        message={`Are you sure to remove this applications?`}
+        title={`Hapus aplikasi ${selectedApp?.name}`}
+        message={`Apa anda yakin untuk menghapus aplikasi ini?`}
         open={open}
         onClose={() => {
           setSelectedApp(null);
@@ -81,8 +81,8 @@ const page = () => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-            <Title>Application</Title>
-            <TextField placeholder="Search Apps" onChange={onQueryChange} />
+            <Title>Aplikasi</Title>
+            <TextField placeholder="Cari aplikasi" onChange={onQueryChange} />
             <Button
               startIcon={<AddIcon />}
               href="/admin/dashboard/applications/create"
@@ -91,14 +91,14 @@ const page = () => {
               LinkComponent={Link}
               sx={{ marginY: 1, width: "max-content" }}
             >
-              Create
+              Buat
             </Button>
             <Table size="small">
               <TableHead>
                 <TableRow>
                   <TableCell>ID</TableCell>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Manage</TableCell>
+                  <TableCell>Nama</TableCell>
+                  <TableCell>Kelolah</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -128,7 +128,7 @@ const page = () => {
                               setOpen(true);
                             }}
                           >
-                            Delete
+                            Hapus
                           </Button>
                         </TableCell>
                       </TableRow>
@@ -148,7 +148,7 @@ const page = () => {
               setPage(page - 1);
             }}
           >
-            Prev
+            Sebelumnya
           </LoadingButton>
         )}
         {appsLength >= 40 && (
@@ -158,7 +158,7 @@ const page = () => {
               setPage(page + 1);
             }}
           >
-            Next
+            Selanjutnya
           </LoadingButton>
         )}
       </div>
