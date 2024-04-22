@@ -227,7 +227,7 @@ export default function Page({ params }: { params: { slug: string } }) {
               </NavigationSwiper>
             </Container>
           )}
-          <Container header="laptop serupa">
+          <Container header="laptop terkait">
             <LaptopMediaSlide data={similarLaptops} />
           </Container>
         </Box>

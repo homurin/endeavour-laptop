@@ -59,7 +59,7 @@ export default function Page() {
           <Stack spacing={2}>
             <TextField
               sx={{ width: "100%", marginBottom: "1rem" }}
-              placeholder="search apps"
+              placeholder="cari aplikasi"
               color="success"
               autoFocus
               onChange={onQueryChange}
@@ -75,7 +75,7 @@ export default function Page() {
             </Grid>
             {apps.length > 5 && (
               <LoadingButton loading={onSearch} onClick={() => setPage(page + 1)}>
-                <span>Load More</span>
+                <span>Tampilkan lagi</span>
               </LoadingButton>
             )}
           </Stack>
