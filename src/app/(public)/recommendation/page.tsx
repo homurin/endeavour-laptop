@@ -90,7 +90,7 @@ export default function Page() {
   const onClickClear = async () => {
     if (onClearAll) return;
     if (apps && apps?.length < 1) {
-      toast.error("application empty");
+      toast.error("aplikasi kosong");
       return;
     }
     try {
@@ -99,25 +99,25 @@ export default function Page() {
       setApps([]);
       setAppsReq([]);
       setOnClearAll(false);
-      toast.success("clear all applications success");
+      toast.success("sukses menghapus semua aplikasi");
     } catch (err) {
-      toast.error("clear all application failed");
+      toast.error("gagal menghapus semua aplikasi");
     }
   };
   return appsReq && appsReq.length > 0 ? (
     <Box sx={{ color: "primary.contrastText", ...uiConfigs.style.mainContent }}>
-      <Container header={`your selected applications`}>
+      <Container header={`aplikasi pilihan anda`}>
         <Box sx={{ ...uiConfigs.style.mainContent }}>
           <Stack spacing={2}>
             <TextField
               sx={{ width: "100%", marginBottom: "1rem" }}
-              placeholder="search your selected apps"
+              placeholder="cari aplikasi pilihan anda"
               color="success"
               onChange={onQueryChange}
               autoFocus
             />
             <LoadingButton variant="contained" loading={onClearAll} onClick={onClickClear}>
-              <span>Clear All</span>
+              <span>Hapus Semua</span>
             </LoadingButton>
             {apps && apps.length > 0 ? (
               <Grid container spacing={1} sx={{ marginRight: "-8x!important" }}>
